@@ -1,0 +1,2 @@
+npm i react-router-dom@6 styled-components react-bootstrap bootstrap framer-motion @fortawesome/free-brands-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
+ 
