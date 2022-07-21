@@ -30,11 +30,11 @@ z-index: 11;
   position: relative;
   cursor: pointer;
   display: inline-block;
-
   &.open{
+    top: 20px;
+    position: fixed;
     span{
       background-color: #C94343;
-
     }
   }
 
