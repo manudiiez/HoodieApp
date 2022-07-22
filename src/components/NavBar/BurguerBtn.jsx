@@ -18,10 +18,6 @@ export default BurguerBtn
 
 
 const Burguer = styled.div`
-z-index: 11;
-@media(min-width: 768px){
-  display: none;
-}
 
 .nav-icon-5{
   width: 35px;
@@ -31,8 +27,6 @@ z-index: 11;
   cursor: pointer;
   display: inline-block;
   &.open{
-    top: 20px;
-    position: fixed;
     span{
       background-color: #C94343;
     }
