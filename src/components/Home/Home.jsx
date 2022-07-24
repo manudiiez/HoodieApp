@@ -1,43 +1,65 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import styled from 'styled-components'
-/* ----------------------------------- IMG ---------------------------------- */
-import brand from '../../img/brandNew.jpg'
 /* ------------------------------- COMPONENTES ------------------------------ */
-import FacebookWidget from '../widget/FacebookWidget'
-import InstagramWidget from '../widget/InstagramWidget'
-import TwitterWidget from '../widget/TwitterWidget'
-import WhatsAppWidget from '../widget/WhatsAppWidget'
+import BoxOffer from './BoxOffer'
+import Brand from '../Utils/Brand'
+import Item from '../Tienda/Item'
+import { data } from '../../data/Data'
 
 const Home = () => {
+
+  const [listaBuzos, setListaBuzos] = useState([]);
+
+  useEffect(()=>{
+
+    data
+    .then((res)=> setListaBuzos(res))
+    .catch(()=> console.log('hubo un error, intente mas tarde'))
+
+  }, [])
+
+  console.log(listaBuzos)
+
   return (
     <Container>
       <div className="container-lg">
-        <ContainerBrand className='row justify-content-center align-items-center'>
-          <div className="col-lg-6 brand__title p-5">
-            <p>Ofertas en buzos de adultos</p>
-          </div>
-          <div className="col-lg-6 brand__media">
-            <ul>
-              <li>
-                <FacebookWidget/>
-              </li>
-              <li>
-                <InstagramWidget/>
-              </li>
-              <li>
-                <TwitterWidget/>
-              </li>
-              <li>
-                <WhatsAppWidget/>
-              </li>
-            </ul>
-          </div>
-        </ContainerBrand>
-        <div className="row">
-          <ContainerTitle className="col-12 home__title">
-            <h1>Hoodie<span>Shop</span> es un e-commerce de buzos en donde podras encontrar buzos de todos los estilos, tipos y tamaños. Nuestra tienda ofrece buzos de todas las marcas mas populares y grandes de la argentina.</h1>
-          </ContainerTitle>
+        <Brand title='Ofertas en buzos de adultos'/>
+        <div className="row justify-content-around p-4">
+          <BoxOffer className='col-md-5 mb-5 col-12'>
+            <p className='h6'>Solo hoy</p>
+            <p>Solo en nuestra tienda</p>
+            <p className='h4 pb-3'>20% descuento</p>
+            <p>Buzos <span className='fw-bold'>Adidas</span> y <span className='fw-bold'>Nike</span></p>
+            <button className='btn btn-outline-light'>Ir ahora</button>
+          </BoxOffer>
+          <BoxOffer className='col-md-5 mb-5 col-12 sweeterWhite'>
+            <p className='py-5 h6'>Los mejores diseños</p>
+            <button className='btn btn-outline-light mb-3'>Ir ahora</button>
+          </BoxOffer>
+          <BoxOffer className='col-md-5 mb-5 col-12 gray'>
+            <p className='h6'>Solo hoy</p>
+            <p>Solo en nuestra tienda</p>
+            <p className='h4 pb-3'>10% descuento</p>
+            <p>Buzos <span className='fw-bold'>Black</span> and <span className='fw-bold'>White</span></p>
+            <button className='btn btn-outline-dark'>Ir ahora</button>
+          </BoxOffer>
+          {listaBuzos.length && <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[0]}/>}
+          {listaBuzos.length && <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[5]}/>}
+
         </div>
+        {
+          listaBuzos.length === 0 ?
+          (
+            <p>...loading</p>
+          ):(
+            <div className="row justify-content-around px-4">
+              <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[1]}/>
+              <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[2]}/>
+              <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[3]}/>
+              <Item className='col-md-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' producto={listaBuzos[4]}/>
+            </div>
+          )
+        }
       </div>
     </Container>
   )
@@ -46,26 +68,12 @@ const Home = () => {
 export default Home
 
 const Container = styled.div`
-  
+  padding-top: 100px;
 
 `
 
 const ContainerBrand = styled.div`
 
-  .brand__title{
-    background-image: url($brand);
-  }
-
-`
-
-const ContainerTitle = styled.div`
-  margin-top: 100px;
-  h1{
-    font-size: 20px;
-    font-weight: normal;
-    span{
-      color: #C94343;
-    }
-  }
+  
 
 `

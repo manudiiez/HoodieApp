@@ -2,10 +2,10 @@ import React from 'react'
 /* ------------------------------- ROUTER-DOM ------------------------------- */
 import { NavLink } from 'react-router-dom'
 
-const Link = ({ to, children }) => {
+const Link = ({ to, func, children }) => {
   return (
     <li>
-        <NavLink to={to}>{children}</NavLink>
+        <NavLink onClick={func} to={to}>{children}</NavLink>
     </li>
   )
 }

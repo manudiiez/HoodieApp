@@ -2,16 +2,22 @@ import React,{useState, useEffect} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
-import logo from '../../img/logoHoodieApp.png'
 import logo2 from '../../img/logo2.png'
 /* ------------------------------- COMPONENTES ------------------------------ */
-import CartWidget from './CartWidget'
-import UserWidget from './UserWidget'
+import CartWidget from '../widget/CartWidget'
+import UserWidget from '../widget/UserWidget'
 import BurgerBtn from './BurguerBtn'
 import Link from './Link'
+import ModalContainer from '../Utils/ModalContainer'
+import CarritoListItem from '../Carrito/CarritoListItem'
 
 const NavBar = () => {
   const [navState, setNavState] = useState(false);
+
+  const [state, setState] = useState(false);
+  const changeModalState = () => {
+    setState(!state)
+  }
 
   const handleClick = () => {
     setNavState(!navState);
@@ -33,38 +39,38 @@ const NavBar = () => {
 
   return (
     <Container>
+      <ModalContainer title='Carrito' state={state} changeState={changeModalState}>
+
+        <CarritoListItem/>
+
+      </ModalContainer>
       <BgDiv2 onClick={handleClick} className={navState ? 'active' : ''}></BgDiv2>
       <BgDiv className={navState ? 'active' : ''}></BgDiv>
-      <header className='d-flex justify-content-between align-items-center px-4'>
+      <header className={`d-flex justify-content-between align-items-center px-4 ${navState ? 'active' : ''} `}>
         <ContainerBurgerBtn>
           <BurgerBtn clicked={navState} handleClick={handleClick}/>
         </ContainerBurgerBtn>
         <ContainerLogo className='d-flex justify-content-center align-items-center'>
-          <img src={navState ? logo2 : logo } alt="" />
+          <img src={logo2 } alt="" />
           <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
         </ContainerLogo>
         <Nav className={navState ? 'active' : ''}>
           <ul className='p-0 m-0'>
-            <Link to="/">Inicio</Link>
+            <Link func={handleClick} to="/">Inicio</Link>
 
-            <Link to="/tienda">Hombres | Mujeres</Link>
+            <Link func={handleClick} to="/tienda">Tienda</Link>
 
-            <Link to="/child">Niños | Niñas</Link>
+            <Link func={handleClick} to="/nosotros">Nosotros</Link>
           </ul>
         </Nav>
 
         <ContainerMethods className={navState ? 'active' : ''}>
-          <button>
-            <UserWidget/>
-            <p>Cuenta</p>
-          </button>
-          <button>
-            <CartWidget/>
-            <p>Carrito</p>
-          </button>
+          <UserWidget/>
+          <CartWidget click={changeModalState} />
         </ContainerMethods>
         <div className='div__none'></div>
       </header>
+      
     </Container>
 
   )
@@ -77,15 +83,23 @@ const Container = styled.div`
   
   min-height: 80px;
 
+
   header{
     position: fixed;
     width: 100%;
     height: 80px;
+    z-index: 120;
+    background-color: rgba(233, 234, 237, 0.9);
+
     .div__none{
       @media(min-width: 992px){
         display: none;
       }
 
+    }
+
+    &.active{
+      background-color: transparent;
     }
   }
 
@@ -249,7 +263,7 @@ const ContainerMethods = styled.div`
 
 const ContainerBurgerBtn = styled.div`
   position: relative;
-  z-index: 12;
+  z-index: 120;
   @media(min-width: 992px){
     display: none;
   }
@@ -263,6 +277,7 @@ const BgDiv = styled.div `
   background-color: #E9EAED;
   height: 100vh;
   width:80vw;
+  z-index: 100;
 
   &.active{
     left: 0;

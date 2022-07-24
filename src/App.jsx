@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 /* --------------------------------- SCREENS -------------------------------- */
 import Home from "./components/Home/Home";
 import NavBar from "./components//NavBar/NavBar";
-import Contacto from "./components/Contacto";
 import Nosotros from "./components/Nosotros/Nosotros";
+import Tienda from "./components/Tienda/Tienda";
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Contacto" element={<Contacto />} />
+          <Route path="/tienda" element={<Tienda />} />
           <Route path="/Nosotros" element={<Nosotros />} />
         </Routes>
       </main>
