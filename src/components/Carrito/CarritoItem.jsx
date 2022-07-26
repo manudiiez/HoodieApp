@@ -5,6 +5,9 @@ import ItemCount from './ItemCount'
 
 
 const CarritoItem = ({ producto }) => {
+
+  
+
   return (
     <Container className="d-flex justify-content-between align-items-center py-2 ">
       {producto.name}

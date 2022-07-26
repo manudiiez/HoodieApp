@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ------------------------------ REACT-SELECT ------------------------------ */
@@ -16,22 +16,19 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import ItemAccordion from './ItemAccordion.jsx';
 import ItemColor from './ItemColor';
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
 
-const Filter = () => {
+const Filter = ({arr}) => {
     const [click, setClick] = useState(false);
+    // const unicos = [... new Set(god)]
 
     const handleClick = () => {
         setClick(!click);
     }
+
     return (
         <Container>
             <ContainerSearch className='d-flex justify-content-center align-items-center flex-row'>
-                <Select isClearable options={options} className='col-10' /> 
+                <Select isClearable options={[...new Set(arr.map( (item) => ({value:item.color, label:item.color}) ))]} className='col-10' /> 
                 <button className='btn'>
                     <FontAwesomeIcon icon={faBars} onClick={handleClick} />
                 </button>
@@ -47,15 +44,11 @@ const Filter = () => {
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </li>
                                 <li className='d-flex justify-content-between align-items-center'>
-                                    Nike
+                                    Adidas
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </li>
                                 <li className='d-flex justify-content-between align-items-center'>
-                                    Nike
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </li>
-                                <li className='d-flex justify-content-between align-items-center'>
-                                    Nike
+                                    Zara
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </li>
                             </ul>

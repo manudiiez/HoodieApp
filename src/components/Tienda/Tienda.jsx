@@ -25,7 +25,7 @@ const Tienda = () => {
                 <Brand title='Catalogo del dia' />
                 <div className="row mt-3">
                     <div className="col-md-3 col-12">
-                        <Filter/>
+                        <Filter arr={listaBuzos}/>
                     </div>
                     <div className="col-md-9 col-12 tienda">
                         <ItemList arr={listaBuzos}/>

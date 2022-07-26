@@ -20,7 +20,11 @@ const NavBar = () => {
   }
 
   const handleClick = () => {
-    setNavState(!navState);
+    const width = document.body.clientWidth
+    if(width < 992){
+      setNavState(!navState);
+    }
+    
   }
 
   useEffect(() => {
@@ -28,7 +32,7 @@ const NavBar = () => {
       const width = document.body.clientWidth
       if(width > 992){
         setNavState(false)
-    }
+      }
     }
     updateWidth()
     window.addEventListener("resize", updateWidth)
