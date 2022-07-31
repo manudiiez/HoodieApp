@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const BurguerBtn = (props) => {
+const BurguerWidget = (props) => {
   return (
     <Burguer>
         <div onClick={props.handleClick} className={`icon nav-icon-5 ${props.clicked ? 'open' : ''}`}>
@@ -14,7 +14,7 @@ const BurguerBtn = (props) => {
   )
 }
 
-export default BurguerBtn
+export default BurguerWidget
 
 
 const Burguer = styled.div`

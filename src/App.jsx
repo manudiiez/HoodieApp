@@ -1,10 +1,9 @@
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
 import { Routes, Route } from "react-router-dom";
+import ItemDetailContainer from "./components/ItemDetailContainer";
+import ItemListContainer from "./components/ItemListContainer";
+import NavBar from "./components/NavBar";
 /* --------------------------------- SCREENS -------------------------------- */
-import Home from "./components/Home/Home";
-import NavBar from "./components//NavBar/NavBar";
-import Nosotros from "./components/Nosotros/Nosotros";
-import Tienda from "./components/Tienda/Tienda";
 
 
 function App() {
@@ -13,9 +12,8 @@ function App() {
       <NavBar/>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tienda" element={<Tienda />} />
-          <Route path="/Nosotros" element={<Nosotros />} />
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/item/:id" element={<ItemDetailContainer />} />
         </Routes>
       </main>
     </div>

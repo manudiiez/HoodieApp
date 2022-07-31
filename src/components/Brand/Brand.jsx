@@ -4,10 +4,11 @@ import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
 import brand from '../../img/brandNew.jpg'
 /* -------------------------------- COMPONENT ------------------------------- */
-import FacebookWidget from '../widget/FacebookWidget'
-import InstagramWidget from '../widget/InstagramWidget'
-import TwitterWidget from '../widget/TwitterWidget'
-import WhatsAppWidget from '../widget/WhatsAppWidget'
+import FacebookWidget from '../widGet/FacebookWidGet'
+import InstagramWidget from '../widGet/InstagramWidGet'
+import TwitterWidget from '../widGet/TwitterWidGet'
+import WhatsAppWidget from '../widGet/WhatsAppWidGet'
+
 
 const Brand = ({title}) => {
   return (
@@ -16,7 +17,7 @@ const Brand = ({title}) => {
             <p className='m-0'>{title}</p>
           </div>
           <div className="col-md-4 brand__media p-5">
-            <ul className='m-0'>
+            <ul className='m-0 p-0'>
               <li>
                 <FacebookWidget/>
               </li>
@@ -43,28 +44,28 @@ const Container = styled.div`
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    p{
-      color: #C94343;
-      span{
-        font-weight: bold;
-      }
-    }
-  }
-  .brand__media{
-    ul{
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      li{
-        color: #BABBC5;
-        &:hover{
-            color: #C94343;
+        p{
+        color: #C94343;
+            span{
+                font-weight: bold;
+            }
         }
-      }
     }
-  }
+    .brand__media{
+        ul{
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+            li{
+                color: #BABBC5;
+                &:hover{
+                    color: #C94343;
+                }
+            }
+        }
+    }
 
 
 `

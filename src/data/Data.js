@@ -160,3 +160,13 @@ export const data = new Promise((resolve, reject) => {
     }, 2000)
 
 })
+
+export const getItem = (id) => {
+
+    const task = new Promise((resolve) => {
+        setTimeout(() => resolve(Buzos[id]), 2000)
+    })
+
+    return task
+
+}

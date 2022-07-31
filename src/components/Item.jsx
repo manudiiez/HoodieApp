@@ -1,21 +1,35 @@
+
+
 import React from 'react'
 /* ---------------------------- STYLED-COMPONENT ---------------------------- */
 import styled from 'styled-components'
+import {useNavigate} from 'react-router-dom'
 
-const Item = ({ producto, className }) => {
-  return (
-    <Container className={className}>
+const Item = ({ item, className }) => {
 
-        <div className='card__img'>
-            <img src={producto.img} alt="" />
-        </div>
-        <div className='card__body py-3 px-2'>
-            <h6 className='text-center fw-lighter'>{producto.name}</h6>
-            <p className='text-center'>$ {producto.price}</p>
-        </div>
+    const {id, name, price, description, img, stock, marca, tipo, color, moda} = item
 
-    </Container>
-  )
+
+    const navigate = useNavigate();
+
+
+    const goTo = () => {
+        navigate('/item/'+id)
+    }
+
+    return (
+        <Container className={className} onClick={goTo}>
+
+            <div className='card__img'>
+                <img src={img}  alt="" />
+            </div>
+            <div className='card__body py-3 px-2'>
+                <h6 className='text-center fw-lighter'>{name}</h6>
+                <p className='text-center'>$ {price}</p>
+            </div>
+
+        </Container>
+    )
 }
 
 export default Item
