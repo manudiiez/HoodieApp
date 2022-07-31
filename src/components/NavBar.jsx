@@ -4,11 +4,11 @@ import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
 import logo2 from '../img/logo2.png'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
-import { NavLink } from 'react-router-dom'
+import { NavLink,Link } from 'react-router-dom'
 /* ------------------------------- COMPONENTES ------------------------------ */
-import CartWidget from './widGet/CartWidget'
-import UserWidget from './widGet/UserWidget'
-import BurguerWidget from './widGet/BurguerWidget'
+import BurguerWidget from './widget/BurguerWidget'
+import UserWidget from './widget/UserWidget'
+import CartWidget from './widget/CartWidget'
 
 const NavBar = () => {
     const [navState, setNavState] = useState(false);
@@ -53,10 +53,12 @@ const NavBar = () => {
             <ContainerBurgerBtn>
                 <BurguerWidget clicked={navState} handleClick={handleClick}/>
             </ContainerBurgerBtn>
-            <ContainerLogo className='d-flex justify-content-center align-items-center'>
-                <img src={logo2 } alt="" />
-                <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
-            </ContainerLogo>
+            <Link to='/' className='text-decoration-none'>
+              <ContainerLogo className='d-flex justify-content-center align-items-center'>
+                  <img src={logo2 } alt="" />
+                  <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
+              </ContainerLogo>
+            </Link>
             <Nav className={navState ? 'active' : ''}>
                 <ul className='p-0 m-0'>
                     <li>

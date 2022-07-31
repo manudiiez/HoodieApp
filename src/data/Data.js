@@ -170,3 +170,13 @@ export const getItem = (id) => {
     return task
 
 }
+
+export const getNewItems = () => {
+    const newBuzos = [Buzos[0], Buzos[1], Buzos[2], Buzos[3]]
+    const task = new Promise((resolve) => {
+        setTimeout(() => resolve(newBuzos), 2000)
+    })
+
+    return task
+
+}

@@ -4,11 +4,10 @@ import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
 import brand from '../../img/brandNew.jpg'
 /* -------------------------------- COMPONENT ------------------------------- */
-import FacebookWidget from '../widGet/FacebookWidGet'
-import InstagramWidget from '../widGet/InstagramWidGet'
-import TwitterWidget from '../widGet/TwitterWidGet'
-import WhatsAppWidget from '../widGet/WhatsAppWidGet'
-
+import FacebookWidget from '../widget/FacebookWidget'
+import InstagramWidget from '../widget/InstagramWidget'
+import TwitterWidget from '../widget/TwitterWidget'
+import WhatsAppWidget from '../widget/WhatsAppWidget'
 
 const Brand = ({title}) => {
   return (

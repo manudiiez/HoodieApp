@@ -1,14 +1,22 @@
 import React,{useState,useEffect} from 'react'
+/* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
+import { useParams } from 'react-router-dom'
+/* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
-import { data, getItem } from '../data/Data'
+/* ---------------------------------- DATA ---------------------------------- */
+import { getItem, getNewItems } from '../data/Data'
+import Brand from './Brand/Brand'
+/* ------------------------------- COMPONENTS ------------------------------- */
 import ItemDetail from './ItemDetail'
-
-const sizes = ['xl', 'l', 'm']
+import Item from './Item'
 
 const ItemDetailContainer = () => {
 
     const [item, setItem] = useState(null);
+    const [newItems, setNewItems] = useState([]);
     const [initial, setInitial] = useState(1);
+
+    const {itemId} = useParams()
 
     const onAdd = () => {
         if(initial < item.stock){
@@ -23,12 +31,14 @@ const ItemDetailContainer = () => {
     }
 
     useEffect(()=>{
-
-        getItem(1)
+        setItem(null)
+        getNewItems()
+        .then((res)=> setNewItems(res))
+        getItem(itemId)
         .then((res)=> setItem(res))
         .catch(()=> console.log('hubo un error, intente mas tarde'))
 
-    }, [])
+    }, [itemId])
 
     return (
         <Container className='container-lg p-5'>
@@ -42,9 +52,18 @@ const ItemDetailContainer = () => {
                     </div>
                 ):
                 (
-                    <ItemDetail item={item} onAdd={onAdd} onRest={onRest} initial={initial} />
+                    <div className='p-0 m-0'>
+                        <ItemDetail item={item} onAdd={onAdd} onRest={onRest} initial={initial} />
+                        <Brand title='Productos destacados'/>
+                        <div className="row justify-content-around m-0 p-0 mt-5">
+                            {
+                                newItems.map((item) => <Item key={item.id} className='col-md-2 mx-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' item={item}/>)
+                            }
+                        </div>
+                    </div>
                 )
             }
+            
         </Container>
     )
 }
@@ -54,63 +73,5 @@ export default ItemDetailContainer
 const Container = styled.div`
 
     padding-top: 100px;
-
-`
-
-const ContainerText = styled.div`
-    text-align: center;
-
-    h5{
-        
-        font-size: 20px;
-        color: #c94343;
-    }
-    
-    .descripcion{
-        font-size: 16px;
-        line-height: 2rem;
-    }
-
-    .precio{
-        color: #007300;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .addCarrito{
-        background-color: #c94343;
-        border: none;
-        color: #fff;
-        padding: 5px 10px;
-        margin-top: 20px;
-        border-radius: 30px;
-        transition: all .5s ease;
-        max-width: 300px;
-        &:hover{
-            transform: scale(1.05);
-        }
-    }
-
-    @media(min-width: 992px){
-
-        h5{
-            margin: 30px;
-            font-size: 24px;
-        }
-
-        .descripcion{
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .precio{
-            font-size: 20px;
-        }
-
-        .methods__container{
-            width: 400px;
-        }
-
-    }
 
 `
