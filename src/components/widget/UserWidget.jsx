@@ -12,4 +12,4 @@ const UserWidget = () => {
   )
 }
 
-export default UserWidget
+export default UserWidget;

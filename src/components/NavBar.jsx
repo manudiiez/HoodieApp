@@ -2,78 +2,88 @@ import React,{useState, useEffect} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
-import logo2 from '../../img/logo2.png'
+import logo2 from '../img/logo2.png'
+/* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
+import { NavLink,Link } from 'react-router-dom'
 /* ------------------------------- COMPONENTES ------------------------------ */
-import CartWidget from '../widget/CartWidget'
-import UserWidget from '../widget/UserWidget'
-import BurgerBtn from './BurguerBtn'
-import Link from './Link'
-import ModalContainer from '../Utils/ModalContainer'
-import CarritoListItem from '../Carrito/CarritoListItem'
+import BurguerWidget from './widget/BurguerWidget'
+import UserWidget from './widget/UserWidget'
+import CartWidget from './widget/CartWidget'
 
 const NavBar = () => {
-  const [navState, setNavState] = useState(false);
+    const [navState, setNavState] = useState(false);
 
-  const [state, setState] = useState(false);
-  const changeModalState = () => {
-    setState(!state)
-  }
-
-  const handleClick = () => {
-    setNavState(!navState);
-  }
-
-  useEffect(() => {
-    const updateWidth = () => {
-      const width = document.body.clientWidth
-      if(width > 992){
-        setNavState(false)
+    const [state, setState] = useState(false);
+    const changeModalState = () => {
+        setState(!state)
     }
+
+    const handleClick = () => {
+        const width = document.body.clientWidth
+        if(width < 992){
+        setNavState(!navState);
+        }
+        
     }
-    updateWidth()
-    window.addEventListener("resize", updateWidth)
-    return () => {
-        window.removeEventListener("resize", updateWidth)
-    }
-  }, [])
 
-  return (
-    <Container>
-      <ModalContainer title='Carrito' state={state} changeState={changeModalState}>
+    useEffect(() => {
+        const updateWidth = () => {
+        const width = document.body.clientWidth
+        if(width > 992){
+            setNavState(false)
+        }
+        }
+        updateWidth()
+        window.addEventListener("resize", updateWidth)
+        return () => {
+            window.removeEventListener("resize", updateWidth)
+        }
+    }, [])
 
-        <CarritoListItem/>
+    return (
+        <Container>
+        {/* <ModalContainer title='Carrito' state={state} changeState={changeModalState}>
 
-      </ModalContainer>
-      <BgDiv2 onClick={handleClick} className={navState ? 'active' : ''}></BgDiv2>
-      <BgDiv className={navState ? 'active' : ''}></BgDiv>
-      <header className={`d-flex justify-content-between align-items-center px-4 ${navState ? 'active' : ''} `}>
-        <ContainerBurgerBtn>
-          <BurgerBtn clicked={navState} handleClick={handleClick}/>
-        </ContainerBurgerBtn>
-        <ContainerLogo className='d-flex justify-content-center align-items-center'>
-          <img src={logo2 } alt="" />
-          <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
-        </ContainerLogo>
-        <Nav className={navState ? 'active' : ''}>
-          <ul className='p-0 m-0'>
-            <Link func={handleClick} to="/">Inicio</Link>
+            <CarritoListItem/>
 
-            <Link func={handleClick} to="/tienda">Tienda</Link>
+        </ModalContainer> */}
+        <BgDiv2 onClick={handleClick} className={navState ? 'active' : ''}></BgDiv2>
+        <BgDiv className={navState ? 'active' : ''}></BgDiv>
+        <header className={`d-flex justify-content-between align-items-center px-4 ${navState ? 'active' : ''} `}>
+            <ContainerBurgerBtn>
+                <BurguerWidget clicked={navState} handleClick={handleClick}/>
+            </ContainerBurgerBtn>
+            <Link to='/' className='text-decoration-none'>
+              <ContainerLogo className='d-flex justify-content-center align-items-center'>
+                  <img src={logo2 } alt="" />
+                  <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
+              </ContainerLogo>
+            </Link>
+            <Nav className={navState ? 'active' : ''}>
+                <ul className='p-0 m-0'>
+                    <li>
+                        <NavLink onClick={handleClick} to='/home'>Inicio</NavLink>
+                    </li>
+                    <li>
+                        <NavLink onClick={handleClick} to='/'>Tienda</NavLink>
+                    </li>
+                    <li>
+                        <NavLink onClick={handleClick} to='/aboutus'>Nosotros</NavLink>
+                    </li>
+               
+                </ul>
+            </Nav>
 
-            <Link func={handleClick} to="/nosotros">Nosotros</Link>
-          </ul>
-        </Nav>
+            <ContainerMethods className={navState ? 'active' : ''}>
+            <UserWidget/>
+            <CartWidget click={changeModalState} />
+            </ContainerMethods>
+            <div className='div__none'></div>
+        </header>
+        
+        </Container>
 
-        <ContainerMethods className={navState ? 'active' : ''}>
-          <UserWidget/>
-          <CartWidget click={changeModalState} />
-        </ContainerMethods>
-        <div className='div__none'></div>
-      </header>
-      
-    </Container>
-
-  )
+    )
 }
 
 export default NavBar
