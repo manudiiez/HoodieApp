@@ -14,21 +14,9 @@ const ItemDetailContainer = () => {
 
     const [item, setItem] = useState(null);
     const [newItems, setNewItems] = useState([]);
-    const [initial, setInitial] = useState(1);
 
     const {itemId} = useParams()
 
-    const onAdd = () => {
-        if(initial < item.stock){
-            setInitial(initial + 1)
-        }
-    }
-
-    const onRest = () => {
-        if(initial > 1){
-            setInitial(initial - 1)
-        }
-    }
 
     useEffect(()=>{
         setItem(null)
@@ -53,7 +41,7 @@ const ItemDetailContainer = () => {
                 ):
                 (
                     <div className='p-0 m-0'>
-                        <ItemDetail item={item} onAdd={onAdd} onRest={onRest} initial={initial} />
+                        <ItemDetail item={item} />
                         <Brand title='Productos destacados'/>
                         <div className="row justify-content-around m-0 p-0 mt-5">
                             {

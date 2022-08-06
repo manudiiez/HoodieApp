@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 /* ---------------------------- STYLED-COMPONENT ---------------------------- */
 import styled from 'styled-components'
 import {useNavigate} from 'react-router-dom'

@@ -26,18 +26,17 @@ const NavBar = () => {
         
     }
 
+    const updateWidth = () => {
+      const width = document.body.clientWidth
+      if(width > 992){
+        setNavState(false)
+      }
+    }
+
     useEffect(() => {
-        const updateWidth = () => {
-        const width = document.body.clientWidth
-        if(width > 992){
-            setNavState(false)
-        }
-        }
-        updateWidth()
-        window.addEventListener("resize", updateWidth)
-        return () => {
-            window.removeEventListener("resize", updateWidth)
-        }
+
+      window.addEventListener('resize', updateWidth)
+
     }, [])
 
     return (
