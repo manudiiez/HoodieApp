@@ -3,11 +3,11 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 /* ------------------------ <COMPONENTS></COMPONENTS> ----------------------- */
 
 
-const CartWidget = ({click}) => {
+const CartWidget = () => {
 
   return (
     <>
-      <button onClick={click} >
+      <button >
         <FontAwesomeIcon icon={faCartShopping} />
         <p>Carrito</p>
       </button>

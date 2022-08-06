@@ -12,12 +12,6 @@ import CartWidget from './widget/CartWidget'
 
 const NavBar = () => {
     const [navState, setNavState] = useState(false);
-
-    const [state, setState] = useState(false);
-    const changeModalState = () => {
-        setState(!state)
-    }
-
     const handleClick = () => {
         const width = document.body.clientWidth
         if(width < 992){
@@ -41,11 +35,6 @@ const NavBar = () => {
 
     return (
         <Container>
-        {/* <ModalContainer title='Carrito' state={state} changeState={changeModalState}>
-
-            <CarritoListItem/>
-
-        </ModalContainer> */}
         <BgDiv2 onClick={handleClick} className={navState ? 'active' : ''}></BgDiv2>
         <BgDiv className={navState ? 'active' : ''}></BgDiv>
         <header className={`d-flex justify-content-between align-items-center px-4 ${navState ? 'active' : ''} `}>
@@ -74,8 +63,8 @@ const NavBar = () => {
             </Nav>
 
             <ContainerMethods className={navState ? 'active' : ''}>
-            <UserWidget/>
-            <CartWidget click={changeModalState} />
+              <UserWidget/>
+              <NavLink onClick={handleClick} to='/cart'><CartWidget /></NavLink>
             </ContainerMethods>
             <div className='div__none'></div>
         </header>
@@ -227,6 +216,10 @@ const ContainerMethods = styled.div`
   left: -100vw;
   &.active{
     left: 0;
+  }
+
+  a{
+    text-decoration: none;
   }
 
   button{
