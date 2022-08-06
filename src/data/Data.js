@@ -74,7 +74,7 @@ const Buzos = [
     },
     {
         id: 6,
-        name: 'Buzo Oversize Zara',
+        name: 'Buzo Oversize Zara2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/wBSLsy6M/Sweater2.jpg',
@@ -86,7 +86,7 @@ const Buzos = [
     },
     {
         id: 7,
-        name: 'Buzo Skinny Zara',
+        name: 'Buzo Skinny Zara2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/xC2q2Kfv/Sweater3.jpg',
@@ -98,7 +98,7 @@ const Buzos = [
     },
     {
         id: 8,
-        name: 'Buzo deportivo Nike',
+        name: 'Buzo deportivo Nike2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/Wz94gCM8/Sweater4.jpg',
@@ -110,7 +110,7 @@ const Buzos = [
     },
     {
         id: 9,
-        name: 'Buzo Oversize Nike',
+        name: 'Buzo Oversize Nike2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/dVZ0ZWDR/Sweater5.jpg',
@@ -122,7 +122,7 @@ const Buzos = [
     },
     {
         id: 10,
-        name: 'Buzo Skinny Nike',
+        name: 'Buzo Skinny Nike2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/XN2NHMCc/Sweater6.jpg',
@@ -134,7 +134,7 @@ const Buzos = [
     },
     {
         id: 11,
-        name: 'Buzo Oversize Adidas',
+        name: 'Buzo Oversize Adidas2',
         price: 20,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
         img: 'https://i.postimg.cc/gknz1My9/Sweater7.jpg',

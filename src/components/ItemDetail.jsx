@@ -1,8 +1,10 @@
-import React,{useEffect, useState} from 'react'
+import React,{useContext, useState} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
 import {useNavigate} from 'react-router-dom'
+/* --------------------------------- CONTEXT -------------------------------- */
+import { CartContext } from '../context/CartContext'
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemCount from './ItemCount'
 
@@ -11,15 +13,17 @@ import ItemCount from './ItemCount'
 
 const ItemDetail = ({ item }) => {
 
+    const {addToCart} = useContext(CartContext)
+
     const [count, setCount] = useState(0);
     const navigate = useNavigate();
 
-    const handleAdd = (quantityToAdd) => {
+    const handleAdd = async(quantityToAdd) => {
         console.log('Handle add', quantityToAdd)
         setCount(quantityToAdd)
         console.log(count)
+        addToCart(item, quantityToAdd)
         navigate('/cart')
-
     }
 
     return (
