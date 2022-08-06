@@ -22,7 +22,7 @@ Lista de tecnologias usadas:
 
 ## Demo
 
-![Alt Text](/static/media/HoodieApp.gif)
+![Alt Text](/src/img/HoodieApp.gif)
 
 ***
 
