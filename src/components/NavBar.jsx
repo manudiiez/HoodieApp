@@ -37,36 +37,38 @@ const NavBar = () => {
         <Container>
         <BgDiv2 onClick={handleClick} className={navState ? 'active' : ''}></BgDiv2>
         <BgDiv className={navState ? 'active' : ''}></BgDiv>
-        <header className={`d-flex justify-content-between align-items-center px-4 ${navState ? 'active' : ''} `}>
-            <ContainerBurgerBtn>
-                <BurguerWidget clicked={navState} handleClick={handleClick}/>
-            </ContainerBurgerBtn>
-            <Link to='/' className='text-decoration-none'>
-              <ContainerLogo className='d-flex justify-content-center align-items-center'>
-                  <img src={logo2 } alt="" />
-                  <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
-              </ContainerLogo>
-            </Link>
-            <Nav className={navState ? 'active' : ''}>
-                <ul className='p-0 m-0'>
-                    <li>
-                        <NavLink onClick={handleClick} to='/home'>Inicio</NavLink>
-                    </li>
-                    <li>
-                        <NavLink onClick={handleClick} to='/'>Tienda</NavLink>
-                    </li>
-                    <li>
-                        <NavLink onClick={handleClick} to='/aboutus'>Nosotros</NavLink>
-                    </li>
-               
-                </ul>
-            </Nav>
+        <header className={`${navState ? 'active' : ''} `}>
+            <div className={`d-flex justify-content-between align-items-center px-4 container-lg h-100`}>
+              <ContainerBurgerBtn>
+                  <BurguerWidget clicked={navState} handleClick={handleClick}/>
+              </ContainerBurgerBtn>
+              <Link to='/' className='text-decoration-none'>
+                <ContainerLogo className='d-flex justify-content-center align-items-center'>
+                    <img src={logo2 } alt="" />
+                    <p className='m-0'><strong>Hoodie<span>Shop</span></strong></p>
+                </ContainerLogo>
+              </Link>
+              <Nav className={navState ? 'active' : ''}>
+                  <ul className='p-0 m-0'>
+                      <li>
+                          <NavLink onClick={handleClick} to='/home'>Inicio</NavLink>
+                      </li>
+                      <li>
+                          <NavLink onClick={handleClick} to='/'>Tienda</NavLink>
+                      </li>
+                      <li>
+                          <NavLink onClick={handleClick} to='/aboutus'>Nosotros</NavLink>
+                      </li>
+                
+                  </ul>
+              </Nav>
 
-            <ContainerMethods className={navState ? 'active' : ''}>
-              <UserWidget/>
-              <NavLink onClick={handleClick} to='/cart'><CartWidget /></NavLink>
-            </ContainerMethods>
-            <div className='div__none'></div>
+              <ContainerMethods className={navState ? 'active' : ''}>
+                <UserWidget/>
+                <NavLink onClick={handleClick} to='/cart'><CartWidget /></NavLink>
+              </ContainerMethods>
+              <div className='div__none'></div>
+            </div>
         </header>
         
         </Container>
