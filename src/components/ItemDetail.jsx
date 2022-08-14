@@ -16,6 +16,7 @@ const ItemDetail = ({ item }) => {
     const {addToCart} = useContext(CartContext)
 
     const [count, setCount] = useState(0);
+    const [buyState, setBuyState] = useState(true);
     const navigate = useNavigate();
 
     const handleAdd = async(quantityToAdd) => {
@@ -23,6 +24,10 @@ const ItemDetail = ({ item }) => {
         setCount(quantityToAdd)
         console.log(count)
         addToCart(item, quantityToAdd)
+        setBuyState(false)
+    }
+
+    const handleBuy = () => {
         navigate('/cart')
     }
 
@@ -62,7 +67,14 @@ const ItemDetail = ({ item }) => {
                     </div>
                 </ContainerSizes>
                 <p className='precio my-3 p-0'>$ {item.price}</p>
-                <ItemCount stock={item.stock} onAdd={handleAdd} initial={1} />                
+                {
+                    buyState ? (
+                        <ItemCount stock={item.stock} onAdd={handleAdd} initial={1} />   
+
+                    ):(
+                        <button className='buyButton' onClick={handleBuy}>Finalizar compra</button>             
+                    )
+                }
             </ContainerText>
         </div>
     )
@@ -98,6 +110,22 @@ const ContainerText = styled.div`
         font-size: 16px;
         font-weight: bold;
     }
+
+    .buyButton{
+        background-color: #c94343;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        margin-top: 20px;
+        border-radius: 30px;
+        transition: all .5s ease;
+        max-width: 300px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
     @media(min-width: 992px){
         h5{
             margin: 30px;
