@@ -1,10 +1,12 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useContext} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
 import logo2 from '../img/logo2.png'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
 import { NavLink,Link } from 'react-router-dom'
+/* --------------------------------- CONTEXT -------------------------------- */
+import { CartContext } from '../context/CartContext'
 /* ------------------------------- COMPONENTES ------------------------------ */
 import BurguerWidget from './widget/BurguerWidget'
 import UserWidget from './widget/UserWidget'
@@ -12,6 +14,8 @@ import CartWidget from './widget/CartWidget'
 
 const NavBar = () => {
     const [navState, setNavState] = useState(false);
+    const {cantInCart} = useContext(CartContext)
+
     const handleClick = () => {
         const width = document.body.clientWidth
         if(width < 992){
@@ -65,7 +69,7 @@ const NavBar = () => {
 
               <ContainerMethods className={navState ? 'active' : ''}>
                 <UserWidget/>
-                <NavLink onClick={handleClick} to='/cart'><CartWidget /></NavLink>
+                <NavLink className={cantInCart === 0 && 'active'} disabled={cantInCart <= 0} onClick={handleClick} to={cantInCart !== 0 && '/cart'}><CartWidget /></NavLink>
               </ContainerMethods>
               <div className='div__none'></div>
             </div>
@@ -222,6 +226,9 @@ const ContainerMethods = styled.div`
 
   a{
     text-decoration: none;
+    &.active{
+      opacity: .3;
+    }
   }
 
   button{
@@ -237,6 +244,7 @@ const ContainerMethods = styled.div`
     &:hover{
       color: #C94343;
     }
+    
     p{
       margin: 0;
     }
