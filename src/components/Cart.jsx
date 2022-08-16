@@ -12,7 +12,7 @@ import styled from 'styled-components'
 
 const Cart = () => {
 
-    const {cart, removeItem, cleanCart} = useContext(CartContext)
+    const {cart, removeItem, cleanCart, totalPrice} = useContext(CartContext)
 
 
     return (
@@ -56,7 +56,12 @@ const Cart = () => {
                                 }
                             </tbody>
                         </table>
-                        <button className='btn btn-danger' onClick={cleanCart}>Limpiar carrito</button>
+                        <ContainerPrice className="d-flex align-items-center justify-content-between m-0 p-0">
+                            <button className='btn btn-danger' onClick={cleanCart}>Limpiar carrito</button>
+                            <div className="totalPrice">
+                                <p>Total: <span>${totalPrice}</span></p>
+                            </div>
+                        </ContainerPrice>
                     </div>
                 )
             }
@@ -95,4 +100,16 @@ const ContainerAlert = styled.div`
         }
     }
 
+`
+
+const ContainerPrice = styled.div`
+    
+    p{
+        font-size: 22px;
+        color: #000;
+        span{
+            font-weight: bold;
+            color: #006100;
+        }
+    }
 `

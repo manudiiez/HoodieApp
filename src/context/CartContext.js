@@ -6,6 +6,7 @@ const CartProvider = ({children}) => {
 
     const [cart, setCart] = useState([]);
     const [cartCant, setCartCant] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const isInCart = (item) => {
         console.log('comprobando')
@@ -15,6 +16,7 @@ const CartProvider = ({children}) => {
     }
     const cleanCart = () => {
         setCart([])
+        setCartCant(0)
     }
     const addToCart = ( item, quantity ) => {
         if(isInCart(item)){
@@ -22,6 +24,7 @@ const CartProvider = ({children}) => {
             const index = cart.findIndex(buzo => buzo.id === item.id)
             cart[index].cantidad = cart[index].cantidad + quantity
             setCart(cart)
+            cantInCart()
         }else{
             console.log('agregado')
             setCart([...cart, { id: item.id ,name: item.name, img: item.img, stock: item.stock, cantidad: quantity, price: item.price}])
@@ -34,14 +37,20 @@ const CartProvider = ({children}) => {
         setCart(resultado)
     }
 
-    const cantInCart = () => {
+    const cartTotalPrice = () => {
         cart.map(item => {
-            setCartCant(cartCant + item.cantidad)
+            setTotalPrice(totalPrice + item.cantidad * item.price)
         })
+    }
+
+    const cantInCart = () => {
+        setCartCant(0)
+        setCartCant(cart.reduce((previous, item) => previous + item.cantidad, 0))
     }
 
     useEffect(() => {
         cantInCart()
+        cartTotalPrice()
     }, [cart])
 
 
@@ -52,7 +61,8 @@ const CartProvider = ({children}) => {
             cleanCart, 
             addToCart, 
             removeItem,
-            cantInCart: cartCant
+            cantInCart: cartCant,
+            totalPrice
             }}>
             {children}
         </CartContext.Provider>
