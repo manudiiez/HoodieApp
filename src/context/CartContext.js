@@ -38,9 +38,8 @@ const CartProvider = ({children}) => {
     }
 
     const cartTotalPrice = () => {
-        cart.map(item => {
-            setTotalPrice(totalPrice + item.cantidad * item.price)
-        })
+        setTotalPrice(0)
+        setTotalPrice(cart.reduce((previous, item) => previous + item.cantidad * item.price, 0))
     }
 
     const cantInCart = () => {
