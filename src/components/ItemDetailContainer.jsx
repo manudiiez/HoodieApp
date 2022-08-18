@@ -5,10 +5,13 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 /* ---------------------------------- DATA ---------------------------------- */
 import { getItem, getNewItems } from '../data/Data'
-import Brand from './Brand/Brand'
+/* -------------------------------- FIREBASE -------------------------------- */
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemDetail from './ItemDetail'
 import Item from './Item'
+import Brand from './Brand/Brand'
+
 
 const ItemDetailContainer = () => {
 
@@ -18,15 +21,35 @@ const ItemDetailContainer = () => {
     const {itemId} = useParams()
 
 
-    useEffect(()=>{
-        setItem(null)
-        getNewItems()
-        .then((res)=> setNewItems(res))
-        getItem(itemId)
-        .then((res)=> setItem(res))
-        .catch(()=> console.log('hubo un error, intente mas tarde'))
+    // useEffect(()=>{
+    //     setItem(null)
+    //     getNewItems()
+    //     .then((res)=> setNewItems(res))
+    //     getItem(itemId)
+    //     .then((res)=> setItem(res))
+    //     .catch(()=> console.log('hubo un error, intente mas tarde'))
 
-    }, [itemId])
+    // }, [itemId])
+
+    useEffect(()=>{
+
+        const db = getFirestore()
+    
+        const docRef = doc(db, 'itemCollection', itemId)
+        getDoc(docRef)
+          .then((snapshot) => {
+            if(snapshot.exists()){
+              console.log(snapshot.data())
+              const data = {
+                id: snapshot.id,
+                ...snapshot.data()
+              }
+              console.log(data)
+              setItem(data)
+            }
+          })
+          .catch((error) => console.log(error))
+    }, [])
 
     return (
         <Container className='container-lg p-5'>

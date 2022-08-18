@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom'
 
 const Item = ({ item, className }) => {
 
-    const {id, name, price, description, img, stock, marca, tipo, color, moda} = item
+    const {id, title, price, img, stock, marca,  color} = item
 
 
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Item = ({ item, className }) => {
                 <img src={img}  alt="" />
             </div>
             <div className='card__body py-3 px-2'>
-                <h6 className='text-center fw-lighter'>{name}</h6>
+                <h6 className='text-center fw-lighter'>{title}</h6>
                 <p className='text-center'>$ {price}</p>
             </div>
 

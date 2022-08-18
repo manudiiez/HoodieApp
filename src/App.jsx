@@ -1,4 +1,5 @@
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./components/Cart";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -7,8 +8,14 @@ import ItemListContainer from "./components/ItemListContainer";
 import NavBar from "./components/NavBar";
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
+import { uploadFiles } from "./data/Data";
+
 
 function App() {
+  
+  useEffect(()=> {
+    // uploadFiles()
+  }, [])
 
   return (
     <div>

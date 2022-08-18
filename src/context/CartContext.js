@@ -27,7 +27,7 @@ const CartProvider = ({children}) => {
             cantInCart()
         }else{
             console.log('agregado')
-            setCart([...cart, { id: item.id ,name: item.name, img: item.img, stock: item.stock, cantidad: quantity, price: item.price}])
+            setCart([...cart, { id: item.id ,title: item.title, img: item.img, stock: item.stock, cantidad: quantity, price: item.price}])
         }
 
         console.log(cart)

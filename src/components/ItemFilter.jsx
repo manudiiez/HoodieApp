@@ -43,14 +43,14 @@ const ItemFilter = ({click, handleClick}) => {
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/category/adidas'>
-                                            Adidas
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/category/zara'>
+                                            Zara
                                             <FontAwesomeIcon icon={faAngleRight} />
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/category/zara'>
-                                            Zara
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/category/fila'>
+                                            Fila
                                             <FontAwesomeIcon icon={faAngleRight} />
                                         </NavLink>
                                     </li>

@@ -37,34 +37,27 @@ const ItemDetail = ({ item }) => {
                 <img src={item.img} alt="" />
             </ContainerImg>
             <ContainerText className="col-md-6 col-12 py-5 d-flex justify-content-center align-items-center flex-column">
-                <h5>{item.name}</h5>
+                <h5>{item.title}</h5>
                 <p className='descripcion'>{item.description}</p>
                 <ContainerCaracteristicas className='row  p-0 m-0'>
                     <p className='col-6'><span>Marca:</span> {item.marca}</p>
-                    <p className='col-6'><span>Modelo:</span> {item.tipo}</p>
-                    <p className='col-6'><span>Estilo:</span> {item.moda}</p>
+                    <p className='col-6'><span>Modelo:</span> {item.modelo}</p>
+                    <p className='col-6'><span>Estilo:</span> {item.estilo}</p>
                     <p className='col-6'><span>Color:</span> {item.color}</p>
-                    <p className='col-6'><span>Estilo:</span> Con capucha</p>
-                    <p className='col-6'><span>Estampado:</span> Liso</p>
+                    <p className='col-6'><span>Tipo:</span> {item.tipo}</p>
+                    <p className='col-6'><span>Estampado:</span> {item.estampado}</p>
                 </ContainerCaracteristicas>
 
-                <ContainerSizes className='row m-0 p-0 w-100'>
-                    <div className="col-lg-3 col-6">
-                        <input type="radio" name="size" id='S'/>
-                        <label htmlFor="S">S</label>
-                    </div>
-                    <div className="col-lg-3 col-6">
-                        <input type="radio" name="size" id='M'/>
-                        <label htmlFor="M">M</label>
-                    </div>
-                    <div className="col-lg-3 col-6">
-                        <input type="radio" name="size" id='L'/>
-                        <label htmlFor="L">L</label>
-                    </div>
-                    <div className="col-lg-3 col-6">
-                        <input type="radio" name="size" id='XL'/>
-                        <label htmlFor="XL">XL</label>
-                    </div>
+                <ContainerSizes className='row justify-content-center align-items-center m-0 p-0 w-100'>
+                    {
+                        item.talles.map((talle) => (
+                            <div className="col-lg-3 col-6" key={talle}>
+                                <input type="radio" name="size" id={talle}/>
+                                <label htmlFor={talle}>{talle.toUpperCase()}</label>
+                            </div>
+                        ))
+                    }
+                   
                 </ContainerSizes>
                 <p className='precio my-3 p-0'>$ {item.price}</p>
                 {

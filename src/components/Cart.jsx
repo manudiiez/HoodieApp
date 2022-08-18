@@ -42,7 +42,7 @@ const Cart = () => {
                                     cart.map(item => (
                                         <tr key={item.id}>
                                             <th scope="row">{item.id}</th>
-                                            <td>{item.name}</td>
+                                            <td>{item.title}</td>
                                             <td>$ {item.price}</td>
                                             <td>{item.cantidad}</td>
                                             <td>$ {item.cantidad * item.price}</td>

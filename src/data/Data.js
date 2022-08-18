@@ -1,3 +1,5 @@
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+
 const Buzos = [
 
     {
@@ -179,4 +181,36 @@ export const getNewItems = () => {
 
     return task
 
+}
+
+// function handleChange(evt) {
+//     setData({
+//       ...data,
+//       [evt.target.name]: evt.target.value,
+//     });
+//   }
+
+export const uploadFiles = async() => {
+    const db = getFirestore()
+
+    try {
+        const docRef = await addDoc(collection(db, "itemCollection"), {
+            title: 'Buzo deportivo Fila',
+            price: 22,
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
+            img: 'https://i.postimg.cc/gknz1My9/Sweater7.jpg',
+            stock: 12,
+            marca: 'fila',
+            modelo: 'oversize',
+            color: 'negro',
+            estilo: 'deportivo',
+            estampado: 'dibujo',
+            talles: ['s','m','l'],
+            tipo: 'con capucha'
+
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 }
