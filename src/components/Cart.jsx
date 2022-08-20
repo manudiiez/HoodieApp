@@ -1,8 +1,6 @@
-import React,{useContext} from 'react'
+import React from 'react'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
 import { Link } from 'react-router-dom'
-/* --------------------------------- CONTEXT -------------------------------- */
-import { CartContext } from '../context/CartContext'
 /* ------------------------------- FONTAWESOME ------------------------------ */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
@@ -10,13 +8,11 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
 
-const Cart = () => {
-
-    const {cart, removeItem, cleanCart, totalPrice} = useContext(CartContext)
-
+const Cart = ({cart, removeItem}) => {
+    
 
     return (
-        <div className='container-lg'>
+        <div>
             {
                 cart.length === 0 ? (
                     <ContainerAlert className='mt-5 d-flex flex-column justify-content-center align-items-center'>
@@ -28,7 +24,6 @@ const Cart = () => {
                         <table className="table">
                             <thead>
                                 <tr>
-                                <th scope="col">id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">precio/u</th>
                                 <th scope="col">cantidad</th>
@@ -41,7 +36,6 @@ const Cart = () => {
                                 {
                                     cart.map(item => (
                                         <tr key={item.id}>
-                                            <th scope="row">{item.id}</th>
                                             <td>{item.title}</td>
                                             <td>$ {item.price}</td>
                                             <td>{item.cantidad}</td>
@@ -56,12 +50,6 @@ const Cart = () => {
                                 }
                             </tbody>
                         </table>
-                        <ContainerPrice className="d-flex align-items-center justify-content-between m-0 p-0">
-                            <button className='btn btn-danger' onClick={cleanCart}>Limpiar carrito</button>
-                            <div className="totalPrice">
-                                <p>Total: <span>${totalPrice}</span></p>
-                            </div>
-                        </ContainerPrice>
                     </div>
                 )
             }
@@ -100,16 +88,4 @@ const ContainerAlert = styled.div`
         }
     }
 
-`
-
-const ContainerPrice = styled.div`
-    
-    p{
-        font-size: 22px;
-        color: #000;
-        span{
-            font-weight: bold;
-            color: #006100;
-        }
-    }
 `
