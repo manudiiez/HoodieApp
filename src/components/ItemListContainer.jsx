@@ -15,39 +15,24 @@ import ItemFilterContainer from './ItemFilterContainer';
 const ItemListContainer = () => {
     const [listaBuzos, setListaBuzos] = useState([]);
 
-    const { categoryId } = useParams()
-
-    // useEffect(() => {
-    //     data
-    //     .then((res)=> {
-    //         if(categoryId){
-    //             setListaBuzos(
-    //                 res.filter((product) => product.marca.toLowerCase() === categoryId.toLowerCase())
-    //             )
-    //         }else{
-    //             setListaBuzos(res)
-    //         }
-    //     })
-    //     .catch(()=> console.log('hubo un error, intente mas tarde'))
-    // }, [categoryId])
+    const { categoryId, colorId, modeloId, estiloId } = useParams()
 
     const db = getFirestore()
     
     const getBuzos = () => {
-        const itemsCollection = collection(db, 'itemCollection')
-        getDocs(itemsCollection)
-            .then((snapshot) => {
-                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
-                console.log(data)
-                setListaBuzos(data)
-                console.log(listaBuzos)
-            })
-            .catch((error) => console.log(error))
+      const itemsCollection = collection(db, 'itemCollection')
+      getDocs(itemsCollection)
+        .then((snapshot) => {
+          const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
+          console.log(data)
+          setListaBuzos(data)
+          console.log(listaBuzos)
+        })
+        .catch((error) => console.log(error))
     }
 
     useEffect(()=>{
         getBuzos()
-
     }, [])
 
     useEffect(() => {
@@ -64,10 +49,50 @@ const ItemListContainer = () => {
               setListaBuzos(data)
             })
             .catch((error) => console.error(error))
-        }else{
+        }
+        else if (colorId) {      
+            const itemsCollectionQuery = query(
+              collection(db, 'itemCollection'),
+              where('color', '==', colorId)
+            )
+      
+            getDocs(itemsCollectionQuery)
+              .then((snapshot) => {
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                setListaBuzos(data)
+              })
+              .catch((error) => console.error(error))
+        }
+        else if (modeloId) {      
+            const itemsCollectionQuery = query(
+              collection(db, 'itemCollection'),
+              where('modelo', '==', modeloId)
+            )
+      
+            getDocs(itemsCollectionQuery)
+              .then((snapshot) => {
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                setListaBuzos(data)
+              })
+              .catch((error) => console.error(error))
+        }
+        else if (estiloId) {      
+            const itemsCollectionQuery = query(
+              collection(db, 'itemCollection'),
+              where('estilo', '==', estiloId)
+            )
+      
+            getDocs(itemsCollectionQuery)
+              .then((snapshot) => {
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                setListaBuzos(data)
+              })
+              .catch((error) => console.error(error))
+        }
+        else{
             getBuzos()
         }
-      }, [categoryId])
+    }, [categoryId, colorId, modeloId, estiloId])
 
     return (
         <Container>

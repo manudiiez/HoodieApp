@@ -195,17 +195,17 @@ export const uploadFiles = async() => {
 
     try {
         const docRef = await addDoc(collection(db, "itemCollection"), {
-            title: 'Buzo deportivo Fila',
-            price: 22,
+            title: 'Buzo liso Zara',
+            price: 23,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
-            img: 'https://i.postimg.cc/gknz1My9/Sweater7.jpg',
-            stock: 12,
-            marca: 'fila',
+            img: 'https://i.postimg.cc/yNvnpGtp/d00015da4fed4fe3bdabadd70080bddd-9366.webp',
+            stock: 3,
+            marca: 'zara',
             modelo: 'oversize',
-            color: 'negro',
-            estilo: 'deportivo',
-            estampado: 'dibujo',
-            talles: ['s','m','l'],
+            color: 'blanco',
+            estilo: 'casual',
+            estampado: 'liso',
+            talles: ['s','m','l', 'xl'],
             tipo: 'con capucha'
 
         });

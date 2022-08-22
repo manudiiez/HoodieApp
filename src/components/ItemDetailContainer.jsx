@@ -3,10 +3,8 @@ import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
-/* ---------------------------------- DATA ---------------------------------- */
-import { getItem, getNewItems } from '../data/Data'
 /* -------------------------------- FIREBASE -------------------------------- */
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, limit, getDocs, query, collection } from "firebase/firestore";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemDetail from './ItemDetail'
 import Item from './Item'
@@ -19,6 +17,8 @@ const ItemDetailContainer = () => {
     const [newItems, setNewItems] = useState([]);
 
     const {itemId} = useParams()
+    const db = getFirestore()
+
 
 
     // useEffect(()=>{
@@ -31,10 +31,21 @@ const ItemDetailContainer = () => {
 
     // }, [itemId])
 
-    useEffect(()=>{
-
-        const db = getFirestore()
+    const getNewItems = () => {
+        const itemsCollectionQuery = query(
+            collection(db, 'itemCollection'),
+            limit(4)
+        )
     
+        getDocs(itemsCollectionQuery)
+            .then((snapshot) => {
+                const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                setNewItems(data)
+            })
+            .catch((error) => console.error(error))
+    }
+
+    useEffect(()=>{    
         const docRef = doc(db, 'itemCollection', itemId)
         getDoc(docRef)
           .then((snapshot) => {
@@ -49,6 +60,10 @@ const ItemDetailContainer = () => {
             }
           })
           .catch((error) => console.log(error))
+    }, [])
+
+    useEffect(() => {
+        getNewItems()
     }, [])
 
     return (

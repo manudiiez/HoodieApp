@@ -24,7 +24,7 @@ const ItemFilter = ({click, handleClick}) => {
             </ContainerSearch>
             <ContainerFilter className={click ? 'active' : ''}>
                 <FontAwesomeIcon icon={faXmark} onClick={handleClick} className='filter__x'/>
-                <Accordion defaultActiveKey={['0']} alwaysOpen  className='accordion__container' flush>
+                <Accordion defaultActiveKey={['0']}  className='accordion__container' flush>
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Categoria</Accordion.Header>
                         <Accordion.Body>
@@ -72,31 +72,70 @@ const ItemFilter = ({click, handleClick}) => {
                         <Accordion.Header>Color</Accordion.Header>
                         <Accordion.Body>
                             <ContainerColors className='py-5'>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
+                                <NavLink to='/color/blanco' className="d-flex flex-column justify-content-center align-items-center col-3 container">
                                     <div style={{ backgroundColor: '#fff' }}></div>
                                     <p>Blanco</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
+                                </NavLink>
+                                <NavLink to='/color/negro' className="d-flex flex-column justify-content-center align-items-center col-3 container">
                                     <div style={{ backgroundColor: '#000' }}></div>
                                     <p>Negro</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
+                                </NavLink>
+                                <NavLink to='/color/verde' className="d-flex flex-column justify-content-center align-items-center col-3 container">
                                     <div style={{ backgroundColor: 'green' }}></div>
                                     <p>Verde</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
+                                </NavLink>
+                                <NavLink to='/color/gris' className="d-flex flex-column justify-content-center align-items-center col-3 container">
                                     <div style={{ backgroundColor: 'gray' }}></div>
                                     <p>Gris</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
+                                </NavLink>
+                                <NavLink to='/color/marron' className="d-flex flex-column justify-content-center align-items-center col-3 container">
                                     <div style={{ backgroundColor: 'brown' }}></div>
                                     <p>Marron</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center col-3 container">
-                                    <div style={{ backgroundColor: 'lightblue' }}></div>
-                                    <p>Celeste</p>
-                                </div>
+                                </NavLink>
+
                             </ContainerColors>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="4">
+                        <Accordion.Header>Modelo</Accordion.Header>
+                        <Accordion.Body>
+                            <ContainerCategory>
+                                <ul className='list-group'>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/skinny'>
+                                            Skinny
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/oversize'>
+                                            Oversize
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </ContainerCategory>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="5">
+                        <Accordion.Header>Estilo</Accordion.Header>
+                        <Accordion.Body>
+                            <ContainerCategory>
+                                <ul className='list-group'>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/deportivo'>
+                                            Deportivo
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/casual'>
+                                            Casual
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </ContainerCategory>
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
@@ -170,6 +209,7 @@ const ContainerFilter = styled.div`
     }
     .accordion__container{
         width: 100%;
+        padding-top: 200px;
         .accordion-item{
             background-color: transparent;
             .accordion-header{
@@ -197,6 +237,10 @@ const ContainerFilter = styled.div`
         align-items: center;
         transition: all .5s ease;
         overflow-y: auto;
+
+        .accordion__container{
+            padding-top: 0px;
+        }
     }
 `
 
@@ -215,6 +259,7 @@ const ContainerCategory = styled.div`
                     color: #C94343;
                 }
             }
+
         }
     }
 `
@@ -232,11 +277,19 @@ const ContainerPrice = styled.div`
 `
 
 const ContainerColors = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
     .container{
+        min-width: 70px;
+        text-decoration: none;
+        &:hover{
+            p{
+                color: #c94343;
+            }
+        }
         div{
             height: 25px;
             width: 25px;

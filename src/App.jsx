@@ -6,6 +6,8 @@ import ItemDetailContainer from "./components/ItemDetailContainer";
 import ItemListContainer from "./components/ItemListContainer";
 import NavBar from "./components/NavBar";
 import CartContainer from "./components/CartContainer";
+import Home from "./components/Home";
+
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
 import { uploadFiles } from "./data/Data";
@@ -24,8 +26,13 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<ItemListContainer />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+            {/* FILTROS */}
             <Route path="/category/:categoryId" element={<ItemListContainer />} />
+            <Route path="/color/:colorId" element={<ItemListContainer />} />
+            <Route path="/modelo/:modeloId" element={<ItemListContainer />} />
+            <Route path="/estilo/:estiloId" element={<ItemListContainer />} />
             <Route path="/cart" element={<CartContainer />} />
 
 
