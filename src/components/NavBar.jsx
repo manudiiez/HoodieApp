@@ -68,7 +68,7 @@ const NavBar = () => {
               </Nav>
 
               <ContainerMethods className={navState ? 'active' : ''}>
-                <UserWidget/>
+                <NavLink to='/login'><UserWidget/></NavLink>
                 <NavLink className={cantInCart === 0 && 'active'} disabled={cantInCart <= 0} onClick={handleClick} to={cantInCart !== 0 && '/cart'}><CartWidget /></NavLink>
               </ContainerMethods>
               <div className='div__none'></div>
