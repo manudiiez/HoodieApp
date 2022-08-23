@@ -1,87 +1,149 @@
 import { useEffect, useState } from 'react';
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
-/* ----------------------------------- IMG ---------------------------------- */
-import bg from '../img/bgForms2.png'
+/* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
+import { useNavigate } from 'react-router-dom';
 /* -------------------------------- FIREBASE -------------------------------- */
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 /* ------------------------------- SWEETALERT ------------------------------- */
 import Swal from 'sweetalert2';
+/* ------------------------------- COMPONENTS ------------------------------- */
+import InstagramWidget from './widget/InstagramWidget';
+import TwitterWidGet from './widget/TwitterWidget';
+import FacebookWidget from './widget/FacebookWidget'
 
 
 const UserContainer = () => {
 
     const [formState, setFormState] = useState(false);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
-    const auth = getAuth()
+    const navigate = useNavigate()
 
-    const createUser = (email, password) => {
+    const auth = getAuth();
+
+
+    const createUser = (e) => {
+        e.preventDefault()
         if(email && password){
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-
-                // ...
-            })
-            .catch((error) => {
-                Swal.fire({
-                    'title': 'A ocurrido un error',
-                    'text': 'Ese email ya esta en uso',
-                    'icon': 'error'
-                    
+            if(password === confirmPassword){
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    Swal.fire({
+                        title: 'Usuario creado',
+                        text: 'Ahora debe iniciar sesion para poder utilizar todas las funciones',
+                        icon: 'success',
+                    }).then(() => {
+                        setFormState(!formState)
+                    })
                 })
-                // ..
-            });
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Pruebe utilizar otra contraseña o email',
+                        icon: 'error',
+                    })
+                });
+            }else{
+                Swal.fire({
+                    title: '¡Cuidado!',
+                    text: 'Las contraseñas no coinciden',
+                    icon: 'warning',
+                })
+            }
         }else{
             Swal.fire({
-                'title': '¡Cuidado!',
-                'text': 'Primero complete los campos',
-                'icon': 'warning'
-                
+                title: '¡Cuidado!',
+                text: 'Debe completar todos los campos',
+                icon: 'warning',
             })
         }
     }
 
-    useEffect(() => {
-    }, [])
-
-    const handleClick = () => {
-        setFormState(!formState)
+    const signInUser = (e) => {
+        e.preventDefault()
+        if(email && password){
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                Swal.fire({
+                    title: 'Sesion iniciada',
+                    text: 'Ahora puede acceder a todas las funciones del sitio',
+                    icon: 'success',
+                }).then(() => {
+                    navigate('/')
+                })
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Pruebe utilizar otra contraseña o email',
+                    icon: 'error',
+                })
+            });
+        }else{
+            Swal.fire({
+                title: '¡Cuidado!',
+                text: 'Debe completar todos los campos',
+                icon: 'warning',
+            })
+        }
     }
 
     return (
         <Container className='pt-5'>
-            <ContainerForms className={`mt-5 p-5 d-flex justify-content-between align-items-center ${formState ? 'active' : ''}`}>
-                <form className='p-4 formSignUp' >
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=> {setEmail(e.target.value)}}/>
+            <div className={`container mt-5 ${formState ? 'active' : ''}`}>
+                <div className="sign__up">
+                    <form>
+                        <h6>Crear una cuenta</h6>
+                        <div className="social__container">
+                            <a href="#"><InstagramWidget/></a>
+                            <a href="#"><TwitterWidGet/></a>
+                            <a href="#"><FacebookWidget/></a>
+                        </div>
+                        <p>Use su email para registrarse</p>
+                        <input type="email" required placeholder='Email' onChange={(e) => {setEmail(e.target.value)}}/>
+                        <input type="password" required placeholder='Password' onChange={(e) => {setPassword(e.target.value)}}/>
+                        <input type="password" required placeholder='Confirm password' onChange={(e) => {setConfirmPassword(e.target.value)}}/>
+                        <button type='submit' onClick={createUser}>Sign Up</button>
+                    </form>
+                </div>
+                <div className="sign__in">
+                    <form>
+                        <h6>Iniciar sesion</h6>
+                        <div className="social__container">
+                            <a href="#"><InstagramWidget/></a>
+                            <a href="#"><TwitterWidGet/></a>
+                            <a href="#"><FacebookWidget/></a>
+                        </div>
+                        <p>Utilice el email de su cuenta</p>
+                        <input type="email" required placeholder='Email' onChange={(e) => {setEmail(e.target.value)}}/>
+                        <input type="password" required placeholder='Password' onChange={(e) => {setPassword(e.target.value)}}/>
+                        <button onClick={signInUser}>sign in</button>
+                    </form>
+                </div>
+                <div className="overlay__container">
+                    <div className="overlay">
+                        <div className="overlay__left">
+                            <h6>Wellcome Back!!</h6>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <button onClick={() => setFormState(!formState)}>Sign In</button>
+                        </div>
+                        <div className="overlay__right">
+                            <h6>Hello, Friend!!</h6>
+                            <p>Enter your personal details ans start journey with us</p>
+                            <button onClick={() => setFormState(!formState)}>Sign Up</button>
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" name='password' onChange={(e)=> {setPassword(e.target.value)}}/>
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={(e) => {e.preventDefault(); createUser(email, password)}}>Registrarse</button>
-                    <p className='text-decoration-underline mt-3 text-primary' onClick={handleClick}>Si ya tienes una cuenta inicie sesion</p>
-
-                </form>
-                <form className='p-4 formSignIn'>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1"/>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Iniciar sesion</button>
-                    <p className='text-decoration-underline mt-3 text-primary' onClick={handleClick}>Si no tienes una cuenta registrese</p>
-
-                </form>
-            </ContainerForms>
+                </div>
+            </div>
         </Container>
     )
 }
@@ -94,45 +156,264 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100%;
 
-`
-
-const ContainerForms = styled.div`
-
-    width: 100%;
-    max-width: 992px;
-    overflow: hidden;
-    background: rgb(233,234,237);
-background: linear-gradient(90deg, rgba(233,234,237,1) 0%, rgba(255,255,255,1) 50%, rgba(233,234,237,1) 100%);
-
-    p{
-        cursor: pointer;
-    }
-
-    form{
-        width: 100%;
-        max-width: 400px;
-        background-color: #fff;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    .container{
         position: relative;
+        width: 100%;
+        max-width: 768px;
+        min-height: 500px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
 
-        transition: all .5s ease;
+        @media(max-width: 992px){
+            height: 850px;
+        }
 
-        &.formSignUp{
-            margin-left: 0;
+        .sign__up, .sign__in{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            transition: all .6s ease-in-out;
         }
-        &.formSignIn{
-            margin-right: -200%;
+
+        .sign__up{
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+            @media(max-width: 992px){
+                width: 100%;
+                height: 50%;
+                bottom: 0;
+            }
         }
+
+        .sign__in{
+            width: 50%;
+            z-index: 2;
+            @media(max-width: 992px){
+                width: 100%;
+                height: 50%;
+            }
+        }
+
+        form{
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+
+            h6{
+                font-weight: bold;
+                margin: 0;
+            }
+
+            p{
+                font-size: 14px;
+                font-weight: 100;
+                line-height: 20px;
+                letter-spacing: 0.5px;
+                margin: 15px 0 20px;
+                @media(max-width: 992px){
+                    margin: 10px 0 15px;
+                }
+            }
+
+            input{
+                background-color: #eee;
+                padding: 12px 15px;
+                margin: 8px 5px;
+                width: 100%;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                @media(max-width: 992px){
+                    margin: 5px 2px;
+                }
+            }
+
+            button{
+                color: #fff;
+                background-color: #c94343;
+                font-size: 12px;
+                font-weight: bold;
+                padding: 12px 55px;
+                margin: 20px;
+                border-radius: 20px;
+                border: 1px solid #c94343;
+                outline: none;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                transition: transform 80ms ease-in;
+                cursor: pointer;
+
+                @media(max-width: 992px){
+                    margin: 10px;
+                }
+
+                &:active{
+                    transform: scale(0.90);
+                }
+            }
+
+        }
+
+        &.active{
+            .sign__up{
+                transform: translateX(100%);
+                opacity: 1;
+                z-index: 5;
+            }
+            .sign__in{
+                transform: translateX(100%);   
+            }
+
+            .overlay__container{
+                transform: translateX(-100%);
+                .overlay{
+                    transform: translateX(50%);
+
+                    .overlay__left{
+                        transform: translateX(0);
+                    }
+                    .overlay__right{
+                        transform: translateX(20%);
+                    }
+                }
+            }
+
+            @media(max-width: 992px){
+                .sign__up{
+                    transform: translateY(100%);
+                }
+                .sign__in{
+                    transform: translateY(100%);   
+                }
+
+                .overlay__container{
+                    transform: translateY(-100%);
+                    
+                }
+            }
+        }
+
+        .overlay__container{
+            position: absolute;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform .6s ease-in-out;
+            z-index: 100;
+
+            @media(max-width: 992px){
+                width: 100%;
+                height: 50%;
+                bottom: 0;
+                left: 0;
+            }
+
+            .overlay{
+                position: relative;
+                color: #fff;
+                background-color: #ff416c;
+                left: -100%;
+                height: 100%;
+                width: 200%;
+                background: linear-gradient(to right, #787886, #c94343);
+                transform: translateX(0);
+                transition: transform .6s ease-in-out;
+                
+
+                .overlay__left, .overlay__right{
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    padding: 0 40px;
+                    text-align: center;
+                    top: 0;
+                    height: 100%;
+                    width: 50%;
+                    transform: translateX(0);
+                    transition: transform 0.6s ease-in-out;
+                }
+
+                .overlay__left{
+                    transform: translateX(-20%);
+                }
+                .overlay__right{
+                    right: 0;
+                    transform: translateX(0);
+                }
+
+                h6{
+                    font-weight: bold;
+                    margin: 0;
+                }
+
+                p{
+                    font-size: 14px;
+                    font-weight: 100;
+                    line-height: 20px;
+                    letter-spacing: 0.5px;
+                    margin: 15px 0 20px;
+                    @media(max-width: 992px){
+                        margin: 10px 0 15px;
+                    }
+                }
+
+                button{
+                    background-color: transparent;
+                    border: 2px solid #fff;
+                    color: #fff;
+                    border-radius: 20px;
+                    padding: 12px 55px;
+
+                    &:hover{
+                        background-color: #fff;
+                        color: #c94343;
+                    }
+                }
+            }
+        }
+
+        .social__container{
+            margin: 20px 0;
+            @media(max-width: 992px){
+                margin: 15px 0;
+            }
+            a{
+                height: 40px;
+                width: 40px;
+                margin: 0 5px;
+                
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                color: #c94343;
+
+                @media(max-width: 992px){
+                    margin: 0 3px;
+                }
+
+                &:hover{
+                    background-color: #c94343;
+                    color: #fff;
+                }
+            }
+        } 
+
     }
 
-    &.active{
-        .formSignUp{
-            margin-left: -200%;
-        }
-        .formSignIn{
-            margin-right: 0;
-        }
-    }
-    
 `

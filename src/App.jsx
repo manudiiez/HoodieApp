@@ -11,8 +11,7 @@ import UserContainer from "./components/UserContainer";
 
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
-import { uploadFiles } from "./data/Data";
-
+import UserProvider from "./context/UserContext";
 
 function App() {
   
@@ -23,22 +22,24 @@ function App() {
   return (
     <div>
       <CartProvider>
-        <NavBar/>
-        <main>
-          <Routes>
-            <Route path="/" element={<ItemListContainer />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-            <Route path="/cart" element={<CartContainer />} />
-            <Route path="/login" element={<UserContainer />} />
-            {/* FILTROS */}
-            <Route path="/category/:categoryId" element={<ItemListContainer />} />
-            <Route path="/color/:colorId" element={<ItemListContainer />} />
-            <Route path="/modelo/:modeloId" element={<ItemListContainer />} />
-            <Route path="/estilo/:estiloId" element={<ItemListContainer />} />
+        <UserProvider>
+          <NavBar/>
+          <main>
+            <Routes>
+              <Route path="/" element={<ItemListContainer />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+              <Route path="/cart" element={<CartContainer />} />
+              <Route path="/login" element={<UserContainer />} />
+              {/* FILTROS */}
+              <Route path="/category/:categoryId" element={<ItemListContainer />} />
+              <Route path="/color/:colorId" element={<ItemListContainer />} />
+              <Route path="/modelo/:modeloId" element={<ItemListContainer />} />
+              <Route path="/estilo/:estiloId" element={<ItemListContainer />} />
 
-          </Routes>
-        </main>
+            </Routes>
+          </main>
+        </UserProvider>
       </CartProvider>
     </div>
   );
