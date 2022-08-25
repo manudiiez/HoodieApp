@@ -18,6 +18,7 @@ import FacebookWidget from './widget/FacebookWidget'
 const ItemUserContainer = () => {
 
     const [formState, setFormState] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -44,7 +45,7 @@ const ItemUserContainer = () => {
             navigate('/')
           })
         } catch (error) {
-          error.code === 'auth/wrong-password' && setError('La ccontraseña es incorrecta')
+          error.code === 'auth/wrong-password' && setError('La contraseña es incorrecta')
           error.code === 'auth/user-not-found' && setError('El email no pertenece a ningun usuario registrado')
         }
     }
@@ -52,25 +53,32 @@ const ItemUserContainer = () => {
     const handleSubmitSignup = async(e) => {
         e.preventDefault()
         setError(null)
-        try {
-          await signin(user.email, user.password)
-          Swal.fire({
-            title: 'Usuario creado',
-            text: 'Ahora puede acceder a todas nuestras funciones',
-            icon: 'success'
-          }).then(() => {
-            navigate('/')
-          })
-        } catch (error) {
-          setError(error.message)
+        if(confirmPassword === user.password){
+            try {
+                await signup(user.email, user.password)
+                Swal.fire({
+                    title: 'Usuario creado',
+                    text: 'Ahora puede acceder a todas nuestras funciones',
+                    icon: 'success'
+                }).then(() => {
+                    navigate('/')
+                })
+            } catch (error) {
+                error.code === 'auth/email-already-in-use' && setError('El email ya esta registrado, pruebe iniciar sesion')
+                error.code === 'auth/weak-password' && setError('La contraseña es muy insegura, pruebe otra')
+            }
+        }else{
+            setError('Las contraseñas no coinciden')
         }
     }
 
     return (
         <Container className='pt-5 d-flex flex-column'>
-            <Alert variant={'danger'} className='w-100 mt-5 alert'>
-                {error}
-            </Alert>
+            {
+                error && <Alert variant={'danger'} className='w-100 mt-5 alert'>
+                    {error}
+                </Alert>
+            }
             <div className={`container ${formState ? 'active' : ''}`}>
                 <div className="sign__up">
                     <form onSubmit={handleSubmitSignup}>
@@ -82,8 +90,8 @@ const ItemUserContainer = () => {
                         </div>
                         <p>Use su email para registrarse</p>
                         <input type="email" required placeholder='Email' name='email' onChange={handleChange}/>
-                        <input type="password" required placeholder='Password' name='password' onChange={handleChange}/>
-                        <input type="password" required placeholder='Confirm password'/>
+                        <input type="text" required placeholder='Password' name='password' onChange={handleChange}/>
+                        <input type="text" required placeholder='Confirm password' onChange={(e)=> setConfirmPassword(e.target.value)}/>
                         <button type='submit'>Sign Up</button>
                     </form>
                 </div>

@@ -41,7 +41,8 @@ const Container = styled.div`
         width: 100%;
         max-width: 200px;
         height: 40px;
-        background-color: #e9eaed;
+        background-color: transparent;
+        border: 1px solid #e9eaed;
         border-radius: 30px;
 
         button{
@@ -66,8 +67,8 @@ const Container = styled.div`
             }
 
             &:disabled{
-                background-color: #cacbcc;
-                color: #c94343;
+                background-color: #e9eaed;
+                color: #9c9c9c;
             }
         }
         

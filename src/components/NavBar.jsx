@@ -4,17 +4,24 @@ import styled from 'styled-components'
 /* ----------------------------------- IMG ---------------------------------- */
 import logo2 from '../img/logo2.png'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
-import { NavLink,Link } from 'react-router-dom'
+import { NavLink,Link, useNavigate } from 'react-router-dom'
+/* -------------------------------- BOOTSTRP -------------------------------- */
+import NavDropdown from 'react-bootstrap/NavDropdown';
 /* --------------------------------- CONTEXT -------------------------------- */
 import { CartContext } from '../context/CartContext'
 /* ------------------------------- COMPONENTES ------------------------------ */
 import BurguerWidget from './widget/BurguerWidget'
 import UserWidget from './widget/UserWidget'
 import CartWidget from './widget/CartWidget'
+import { useAuth } from '../context/AuthContext'
 
 const NavBar = () => {
     const [navState, setNavState] = useState(false);
-    const {cantInCart} = useContext(CartContext)
+    const {cantInCart, cleanCart} = useContext(CartContext)
+
+    const {user, logout} = useAuth()
+
+    const navigate = useNavigate()
 
     const handleClick = () => {
         const width = document.body.clientWidth
@@ -22,6 +29,17 @@ const NavBar = () => {
         setNavState(!navState);
         }
         
+    }
+
+    
+    const handleLogout = async() => {
+      try {
+        await logout()
+        handleClick()
+        cleanCart()
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     const updateWidth = () => {
@@ -63,12 +81,23 @@ const NavBar = () => {
                       <li>
                           <NavLink onClick={handleClick} to='/aboutus'>Nosotros</NavLink>
                       </li>
-                
                   </ul>
               </Nav>
 
               <ContainerMethods className={navState ? 'active' : ''}>
-                <NavLink to='/login'><UserWidget/></NavLink>
+                {
+                  user ? (
+                    <NavDropdown title={user.email} className='name__container' id="basic-nav-dropdown">
+                      <NavDropdown.Item onClick={() => {navigate('/orders'); handleClick()}}>Mis pedidos</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={handleLogout}>
+                        Cerrar sesion
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ):(
+                    <NavLink to='/login'><UserWidget/></NavLink>
+                  )
+                }
                 <NavLink className={cantInCart === 0 && 'active'} disabled={cantInCart <= 0} onClick={handleClick} to={cantInCart !== 0 && '/cart'}><CartWidget /></NavLink>
               </ContainerMethods>
               <div className='div__none'></div>
@@ -249,6 +278,10 @@ const ContainerMethods = styled.div`
       margin: 0;
     }
   }
+
+  /* .name__container{
+    max-width: 145px;
+  } */
 
   @media(min-width: 992px){
     position: relative;
