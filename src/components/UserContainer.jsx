@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
 /* -------------------------------- FIREBASE -------------------------------- */
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {getFirestore, collection, addDoc} from 'firebase/firestore'
 /* ------------------------------- SWEETALERT ------------------------------- */
 import Swal from 'sweetalert2';
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -23,7 +24,21 @@ const UserContainer = () => {
     const navigate = useNavigate()
 
     const auth = getAuth();
+    
+    const db = getFirestore()
 
+    const writeFirebase = async(user) => {
+        try {
+            const docRef = await addDoc(collection(db, `users/`), {
+              email: user.email,
+              rol: 'usuario'
+            });
+          
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+}
 
     const createUser = (e) => {
         e.preventDefault()
@@ -32,6 +47,10 @@ const UserContainer = () => {
                 createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    console.log(user)
+
+                    writeFirebase(user)
+                    
                     Swal.fire({
                         title: 'Usuario creado',
                         text: 'Ahora debe iniciar sesion para poder utilizar todas las funciones',
@@ -311,7 +330,7 @@ const Container = styled.div`
             height: 100%;
             overflow: hidden;
             transition: transform .6s ease-in-out;
-            z-index: 100;
+            z-index: 10;
 
             @media(max-width: 992px){
                 width: 100%;
@@ -334,6 +353,7 @@ const Container = styled.div`
 
                 .overlay__left, .overlay__right{
                     position: absolute;
+                    z-index: 10;
                     display: flex;
                     align-items: center;
                     justify-content: center;
