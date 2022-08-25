@@ -7,11 +7,12 @@ import ItemListContainer from "./components/ItemListContainer";
 import NavBar from "./components/NavBar";
 import CartContainer from "./components/CartContainer";
 import Home from "./components/Home";
-import UserContainer from "./components/UserContainer";
+import ItemUserContainer from "./components/ItemUserContainer";
 
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
-import UserProvider from "./context/UserContext";
+import { AuthProvider } from "./context/AuthContext";
+
 
 function App() {
   
@@ -22,7 +23,7 @@ function App() {
   return (
     <div>
       <CartProvider>
-        <UserProvider>
+        <AuthProvider>
           <NavBar/>
           <main>
             <Routes>
@@ -30,7 +31,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/item/:itemId" element={<ItemDetailContainer />} />
               <Route path="/cart" element={<CartContainer />} />
-              <Route path="/login" element={<UserContainer />} />
+              <Route path="/login" element={<ItemUserContainer />} />
               {/* FILTROS */}
               <Route path="/category/:categoryId" element={<ItemListContainer />} />
               <Route path="/color/:colorId" element={<ItemListContainer />} />
@@ -39,7 +40,7 @@ function App() {
 
             </Routes>
           </main>
-        </UserProvider>
+        </AuthProvider>
       </CartProvider>
     </div>
   );

@@ -7,7 +7,6 @@ import logo2 from '../img/logo2.png'
 import { NavLink,Link } from 'react-router-dom'
 /* --------------------------------- CONTEXT -------------------------------- */
 import { CartContext } from '../context/CartContext'
-import { UserContext } from '../context/UserContext.js'
 /* ------------------------------- COMPONENTES ------------------------------ */
 import BurguerWidget from './widget/BurguerWidget'
 import UserWidget from './widget/UserWidget'

@@ -3,124 +3,77 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
 import { useNavigate } from 'react-router-dom';
-/* -------------------------------- FIREBASE -------------------------------- */
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-import {getFirestore, collection, addDoc} from 'firebase/firestore'
 /* ------------------------------- SWEETALERT ------------------------------- */
 import Swal from 'sweetalert2';
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from '../context/AuthContext';
+/* -------------------------------- BOOTSTRAP ------------------------------- */
+import { Alert } from 'react-bootstrap';
 /* ------------------------------- COMPONENTS ------------------------------- */
 import InstagramWidget from './widget/InstagramWidget';
 import TwitterWidGet from './widget/TwitterWidget';
 import FacebookWidget from './widget/FacebookWidget'
 
 
-const UserContainer = () => {
+const ItemUserContainer = () => {
 
     const [formState, setFormState] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [user, setUser] = useState({
+        email: '',
+        password: ''
+    });
+    const [error, setError] = useState();
 
+    const {signin, signup} = useAuth()
     const navigate = useNavigate()
 
-    const auth = getAuth();
-    
-    const db = getFirestore()
+    const handleChange = ({ target: {name, value}}) => {
+        setUser({...user, [name]: value})
+    }
 
-    const writeFirebase = async(user) => {
-        try {
-            const docRef = await addDoc(collection(db, `users/`), {
-              email: user.email,
-              rol: 'usuario'
-            });
-          
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
-}
-
-    const createUser = (e) => {
+    const handleSubmitSignin = async(e) => {
         e.preventDefault()
-        if(email && password){
-            if(password === confirmPassword){
-                createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user)
-
-                    writeFirebase(user)
-                    
-                    Swal.fire({
-                        title: 'Usuario creado',
-                        text: 'Ahora debe iniciar sesion para poder utilizar todas las funciones',
-                        icon: 'success',
-                    }).then(() => {
-                        setFormState(!formState)
-                    })
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Pruebe utilizar otra contraseña o email',
-                        icon: 'error',
-                    })
-                });
-            }else{
-                Swal.fire({
-                    title: '¡Cuidado!',
-                    text: 'Las contraseñas no coinciden',
-                    icon: 'warning',
-                })
-            }
-        }else{
-            Swal.fire({
-                title: '¡Cuidado!',
-                text: 'Debe completar todos los campos',
-                icon: 'warning',
-            })
+        setError(null)
+        try {
+          await signin(user.email, user.password)
+          Swal.fire({
+            title: 'Sesion iniciada',
+            text: 'Ahora puede acceder a todas nuestras funciones',
+            icon: 'success'
+          }).then(() => {
+            navigate('/')
+          })
+        } catch (error) {
+          error.code === 'auth/wrong-password' && setError('La ccontraseña es incorrecta')
+          error.code === 'auth/user-not-found' && setError('El email no pertenece a ningun usuario registrado')
         }
     }
 
-    const signInUser = (e) => {
+    const handleSubmitSignup = async(e) => {
         e.preventDefault()
-        if(email && password){
-            signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                Swal.fire({
-                    title: 'Sesion iniciada',
-                    text: 'Ahora puede acceder a todas las funciones del sitio',
-                    icon: 'success',
-                }).then(() => {
-                    navigate('/')
-                })
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Pruebe utilizar otra contraseña o email',
-                    icon: 'error',
-                })
-            });
-        }else{
-            Swal.fire({
-                title: '¡Cuidado!',
-                text: 'Debe completar todos los campos',
-                icon: 'warning',
-            })
+        setError(null)
+        try {
+          await signin(user.email, user.password)
+          Swal.fire({
+            title: 'Usuario creado',
+            text: 'Ahora puede acceder a todas nuestras funciones',
+            icon: 'success'
+          }).then(() => {
+            navigate('/')
+          })
+        } catch (error) {
+          setError(error.message)
         }
     }
 
     return (
-        <Container className='pt-5'>
-            <div className={`container mt-5 ${formState ? 'active' : ''}`}>
+        <Container className='pt-5 d-flex flex-column'>
+            <Alert variant={'danger'} className='w-100 mt-5 alert'>
+                {error}
+            </Alert>
+            <div className={`container ${formState ? 'active' : ''}`}>
                 <div className="sign__up">
-                    <form>
+                    <form onSubmit={handleSubmitSignup}>
                         <h6>Crear una cuenta</h6>
                         <div className="social__container">
                             <a href="#"><InstagramWidget/></a>
@@ -128,14 +81,14 @@ const UserContainer = () => {
                             <a href="#"><FacebookWidget/></a>
                         </div>
                         <p>Use su email para registrarse</p>
-                        <input type="email" required placeholder='Email' onChange={(e) => {setEmail(e.target.value)}}/>
-                        <input type="password" required placeholder='Password' onChange={(e) => {setPassword(e.target.value)}}/>
-                        <input type="password" required placeholder='Confirm password' onChange={(e) => {setConfirmPassword(e.target.value)}}/>
-                        <button type='submit' onClick={createUser}>Sign Up</button>
+                        <input type="email" required placeholder='Email' name='email' onChange={handleChange}/>
+                        <input type="password" required placeholder='Password' name='password' onChange={handleChange}/>
+                        <input type="password" required placeholder='Confirm password'/>
+                        <button type='submit'>Sign Up</button>
                     </form>
                 </div>
                 <div className="sign__in">
-                    <form>
+                    <form onSubmit={handleSubmitSignin}>
                         <h6>Iniciar sesion</h6>
                         <div className="social__container">
                             <a href="#"><InstagramWidget/></a>
@@ -143,9 +96,10 @@ const UserContainer = () => {
                             <a href="#"><FacebookWidget/></a>
                         </div>
                         <p>Utilice el email de su cuenta</p>
-                        <input type="email" required placeholder='Email' onChange={(e) => {setEmail(e.target.value)}}/>
-                        <input type="password" required placeholder='Password' onChange={(e) => {setPassword(e.target.value)}}/>
-                        <button onClick={signInUser}>sign in</button>
+                        <input type="email" required placeholder='Email' name='email' onChange={handleChange}/>
+                        <input type="password" required placeholder='Password' name='password' onChange={handleChange}/>
+                        <button type='submit'>sign in</button>
+                        <p className='text-danger'>{error}</p>
                     </form>
                 </div>
                 <div className="overlay__container">
@@ -167,7 +121,7 @@ const UserContainer = () => {
     )
 }
 
-export default UserContainer
+export default ItemUserContainer
 
 const Container = styled.div`
 
@@ -176,6 +130,12 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 100%;
+
+    .alert{
+        max-width: 768px;
+        background-color: #c94343;
+        color: #fff;
+    }
 
     .container{
         position: relative;
