@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 /* ------------------------------- FONTAWESOME ------------------------------ */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faX } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 
@@ -51,23 +51,29 @@ const Cart = ({cart, removeItem}) => {
                     //         </tbody>
                     //     </table>
                     // </div>
-                    <Container>
-                        <div className="row justify-content-center align-items-center">
-                            <p className='p-0'>Productos en el carrito: {cart.length}</p>
-                        </div>
-                        <div className="row justify-content-center align-items-center px-2">
-                            <Item className="col-12 p-3 row">
-                                <div className="col-12 col-md-4">
-                                    <img src={cart[0].img} alt="" />
-                                </div>
-                                <div className="col-12 col-md-6">
-                                    <p className='title'>{cart[0].title}</p>
-                                    <p><span>Precio/u:</span> ${cart[0].price}</p>
-                                    <p><span>Unidades:</span> {cart[0].cantidad}</p>
-                                    <p className='total'>$ {cart[0].cantidad*cart[0].price}</p>
-                                </div>
-                            </Item>
-                        </div>
+                    <Container className='row justify-content-center align-items-center'>
+                        {
+                            cart.map(item => (
+                                <Item className='col-12 row p-0 m-0 py-3' key={item.id}>
+                                    <div className='col-4'>
+                                        <img src={item.img} alt="" />
+                                    </div>
+                                    <div className='col-6 d-flex flex-column justify-content-around align-items-start'>
+                                        <p className='m-0 title'>{item.title}</p>
+                                        <p className='m-0'><span>Precio/u:</span> ${item.price}</p>
+                                        <p className='m-0'><span>Cantidad:</span> {item.cantidad}</p>
+                                    </div>
+                                    <div className="col-2 d-flex flex-column justify-content-center align-items-center">
+                                        <button className='btn' onClick={() => removeItem(item.id)}>
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                        </button>
+                                    </div>
+                                    <div className="col-12">
+                                        <p className='text-end m-0 price'>${item.cantidad*item.price}</p>
+                                    </div>
+                                </Item>
+                            ))
+                        }
                     </Container>
                 )
             }
@@ -80,41 +86,38 @@ export default Cart
 
 const Container = styled.div`
 
+
+
 `
 
 const Item = styled.div`
-    
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 10px;
-    width: 100%;
+    border-bottom: 1px solid #000;
     img{
-        width:100%;
-        height: 220px;
+        width: 100%;
+        height: 130px;
+        border-radius: 50%;
         object-fit: contain;
     }
-    .title{
-        font-size: 22px;
-        text-align: center;
 
-    }
-
-    .total{
+    .price{
+        color: #006100;
+        font-weight: bold;        
         font-size: 20px;
-        color:#006100;
-        font-weight: bold;
-    }
-    p{
-        text-align: center;
-        font-size: 18px;
-        span{
-            color: #c94343;
-            font-weight: bold;
-        }
+
     }
 
-    .text-end{
-        color:#006100;
-        font-weight: bold;
+    .title{
+        font-size: 20px;
+        color: #c94343;
+    }
+
+    p{
+        font-size: 16px;
+    }
+
+    button{
+        background: #c94343;
+        color: #fff;
     }
 
 `

@@ -69,13 +69,13 @@ const CartContainer = () => {
                 </div>
                ):
                (
-                   <ContainerPrice className="d-flex align-items-center justify-content-between m-0 p-0">
-                       <div>
+                   <ContainerPrice className="row align-items-center justify-content-between m-0 p-0 mt-3">
+                       <div className='col-12 col-sm-9 text-start'>
                            <button className='btn btn-success me-3' onClick={handleBuy}>Finalizar compra</button>
                            <button className='btn btn-danger' onClick={cleanCart}>Limpiar carrito</button>
                        </div>
-                       <div className="totalPrice">
-                           <p className='mb-3'>Total: <span>${totalPrice}</span></p>
+                       <div className="totalPrice col-12 col-sm-3">
+                           <p className='mb-3 text-end'>Total: <span>${totalPrice}</span></p>
                        </div>
                    </ContainerPrice>
                ) 
