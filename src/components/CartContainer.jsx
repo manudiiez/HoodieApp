@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Cart from './Cart'
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from '../context/AuthContext'
 
 const USER_DEMO = {
     name: 'manudiiez',
@@ -21,12 +23,19 @@ const USER_DEMO = {
 const CartContainer = () => {
 
     const {cart, removeItem, cleanCart, totalPrice} = useContext(CartContext)
+    const {user} = useAuth()
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate()
 
     const handleBuy = () => {
+
+        const userData = {
+            email: user.email,
+            uid: user. uid
+        }
+
         const newOrder = {
-            buyer: USER_DEMO,
+            buyer: userData,
             items: cart,
             date: new Date(),
             total: totalPrice
@@ -38,21 +47,19 @@ const CartContainer = () => {
         setLoader(true)
         addDoc(ordersCollection, newOrder)
         .then(({id}) => {
-            console.log(id)
-            setLoader(false)
-        })
-        .then(() => cleanCart())
-        .then(() => {
             Swal.fire({
                 title: 'Orden realizada',
-                text: 'Su pedido ya fue enviado con exito',
+                text: 'Su pedido ya fue enviado con exito\n id:' + id,
+                
                 icon: 'success',
                 confirmButtonText: 'Cool'
             })
             .then(() => {
                 navigate('/')
             })
+            setLoader(false)
         })
+        .then(() => cleanCart())
         .catch((error) => console.log(error) )
     }
 

@@ -1,5 +1,4 @@
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
-import { useEffect } from "react";
 import { Routes, Route, } from "react-router-dom";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemDetailContainer from "./components/ItemDetailContainer";
@@ -11,6 +10,7 @@ import ItemUserContainer from "./components/ItemUserContainer";
 import ItemOrdersContainer from "./components/ItemOrdersContainer";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
 import ProtectedAdminRoute from "./components/protected/ProtectedAdminRoute";
+import ItemAdminContainer from "./components/ItemAdminContainer";
 
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
@@ -29,15 +29,21 @@ function App() {
               <Route path="/" element={<ItemListContainer />} />
               <Route path="/home" element={<Home />} />
               <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+              <Route path="/login" element={<ItemUserContainer />} />
+              {/* RUTAS PROTEGIDAS */}
               <Route path="/cart" element={
                 <ProtectedRoute>
                   <CartContainer />
                 </ProtectedRoute>
               }/>
-              <Route path="/login" element={<ItemUserContainer />} />
               <Route path="/orders" element={
-                <ProtectedAdminRoute>
+                <ProtectedRoute>
                   <ItemOrdersContainer />
+                </ProtectedRoute>
+              }/>
+              <Route path="/admin" element={
+                <ProtectedAdminRoute>
+                  <ItemAdminContainer />
                 </ProtectedAdminRoute>
               }/>
               {/* FILTROS */}
