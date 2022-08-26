@@ -11,6 +11,7 @@ import ItemOrdersContainer from "./components/ItemOrdersContainer";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
 import ProtectedAdminRoute from "./components/protected/ProtectedAdminRoute";
 import ItemAdminContainer from "./components/ItemAdminContainer";
+import ItemAboutusContainer from "./components/ItemAboutusContainer";
 
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/" element={<ItemListContainer />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/aboutus" element={<ItemAboutusContainer />} />
               <Route path="/item/:itemId" element={<ItemDetailContainer />} />
               <Route path="/login" element={<ItemUserContainer />} />
               {/* RUTAS PROTEGIDAS */}

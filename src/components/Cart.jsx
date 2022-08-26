@@ -91,7 +91,7 @@ const Container = styled.div`
 `
 
 const Item = styled.div`
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #e9eaed;
     img{
         width: 100%;
         height: 130px;
