@@ -37,6 +37,7 @@ const NavBar = () => {
         await logout()
         handleClick()
         cleanCart()
+        navigate('/login')
       } catch (error) {
         console.log(error)
       }
@@ -88,7 +89,15 @@ const NavBar = () => {
                 {
                   user ? (
                     <NavDropdown title={user.email} className='name__container' id="basic-nav-dropdown">
-                      <NavDropdown.Item onClick={() => {navigate('/orders'); handleClick()}}>Mis pedidos</NavDropdown.Item>
+                      {
+                        user.email === 'admin@admin.com' ? (
+                          <NavDropdown.Item onClick={() => {navigate('/admin')}}>
+                            Administrador
+                          </NavDropdown.Item>
+                        ):(
+                          <NavDropdown.Item onClick={() => {navigate('/orders'); handleClick()}}>Mis pedidos</NavDropdown.Item>
+                        )
+                      }
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>
                         Cerrar sesion

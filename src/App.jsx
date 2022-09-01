@@ -16,6 +16,8 @@ import ItemAboutusContainer from "./components/ItemAboutusContainer";
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
 import { AuthProvider } from "./context/AuthContext";
+import ItemAdminOrdersContainer from "./components/ItemAdminOrdersContainer";
+import ItemAdminListContainer from "./components/ItemAdminListContainer";
 
 
 function App() {
@@ -46,6 +48,18 @@ function App() {
               <Route path="/admin" element={
                 <ProtectedAdminRoute>
                   <ItemAdminContainer />
+                </ProtectedAdminRoute>
+              }/>
+
+              <Route path="/adminOrders" element={
+                <ProtectedAdminRoute>
+                  <ItemAdminOrdersContainer />
+                </ProtectedAdminRoute>
+              }/>
+
+              <Route path="/adminList" element={
+                <ProtectedAdminRoute>
+                  <ItemAdminListContainer />
                 </ProtectedAdminRoute>
               }/>
               {/* FILTROS */}

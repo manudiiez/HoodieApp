@@ -1,40 +1,37 @@
 import { useEffect, useState } from 'react'
-/* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from '../context/AuthContext'
 /* -------------------------------- FIREBASE -------------------------------- */
 import {query, where, getDocs, collection, getFirestore} from 'firebase/firestore'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
+/* ------------------------------- COMPONENTS ------------------------------- */
 import ItemOrders from './ItemOrders'
 
-const ItemOrdersContainer = () => {
+const ItemAdminOrdersContainer = () => {
 
-  const [orders, setOrders] = useState([]);
+  const [listaOrdenes, setListaOrdenes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const {user} = useAuth()
   const db = getFirestore()
+
 
   useEffect(() => {
     setLoading(true)
-    const ordersCollectionQuery = query(
-      collection(db, 'orders'),
-      where('buyer.uid', '==', user.uid)
-    )
-
-    getDocs(ordersCollectionQuery)
-      .then((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        setOrders(data)
-        setLoading(false)
-        console.log(data)
-      })
-      .catch((error) => console.error(error))
+    const ordersCollection = collection(db, 'orders')
+    getDocs(ordersCollection)
+    .then((snapshot) => {
+      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
+      console.log(data)
+      setListaOrdenes(data)
+      console.log(listaOrdenes)
+      setLoading(false)
+    })
+    .catch((error) => console.log(error)) 
   }, [])
+
   return (
     <Container>
       <div className="container-lg p-3">
-        <p className='title'>Mis <span>ordenes:</span></p>
+        <p className='title'>Todos mis <span>pedidos</span></p>
         {
           loading ? (
             <div className="d-flex justify-content-center my-5 py-5">
@@ -43,7 +40,7 @@ const ItemOrdersContainer = () => {
               </div>
             </div>
           ):(
-            <ItemOrders arr={orders} admin={false} />
+            <ItemOrders arr={listaOrdenes} admin={true} />
           )
         }
       </div>
@@ -51,10 +48,9 @@ const ItemOrdersContainer = () => {
   )
 }
 
-export default ItemOrdersContainer
+export default ItemAdminOrdersContainer
 
 const Container = styled.div`
-  
   .title{
     font-size: 24px;
     span{
@@ -64,3 +60,4 @@ const Container = styled.div`
   }
 
 `
+
