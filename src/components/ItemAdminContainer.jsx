@@ -13,11 +13,11 @@ const ItemAdminContainer = () => {
   return (
     <Container className='container-lg py-5 px-3'>
       <p className='title'>Panel de <span>Administrador</span></p>
-      <div className="row m-0 p-0">
-        <ButtonContainer className="col-md-6 col-12 d-flex justify-content-center align-items-center p-5 button my-3" onClick={() => {navigate('/adminOrders')}}>
+      <div className="row justify-content-between m-0 p-0 mt-5">
+        <ButtonContainer className="col-lg-5 col-12 d-flex justify-content-center align-items-center p-5 button my-2" onClick={() => {navigate('/adminOrders')}}>
           <p className='m-0 my-5'>Pedidos</p>
         </ButtonContainer>
-        <ButtonContainer className="col-md-6 col-12 d-flex justify-content-center align-items-center p-5 button" onClick={() => {navigate('/adminList')}}>
+        <ButtonContainer className="col-lg-5 col-12 d-flex justify-content-center align-items-center p-5 button my-2" onClick={() => {navigate('/adminList')}}>
           <p className='m-0 my-5'>Productos</p>
         </ButtonContainer>
       </div>

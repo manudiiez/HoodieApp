@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-const ItemOrders = ({arr, admin}) => {
+const ItemOrders = ({arr, admin, state}) => {
 
 
     useEffect(() => {
@@ -43,9 +43,9 @@ const ItemOrders = ({arr, admin}) => {
                             {
                                 admin ? (
                                     <ButtonContainer className='col-12 row m-0 p-0 justify-content-between align-items-center'>
-                                        <button className='col-4'>Estado</button>
-                                        <button className='col-4'>Cancelar</button>
-                                        <button className='col-4'>Estado</button>
+                                        <button className='col-4' onClick={() => {state(item.id)}}><span>Estado</span></button>
+                                        <button className='col-4'><span>Eliminar</span></button>
+                                        <button className='col-4'><span>Contactar</span></button>
                                     </ButtonContainer>
                                 ):(
                                     <span className="d-none"></span>
@@ -121,9 +121,49 @@ const ButtonContainer = styled.div`
         margin: 10px 0;
         padding: 10px 15px;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        span{
+            position: relative;
+            z-index: 2;
+            transition: all .2s ease-in;
+
+        }
+
+        &::before{
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all .2s ease-in;
+        }
+
+        &:nth-of-type(1){
+            &::before{
+                background-color: #c6c602;            
+            }
+        }
+
+        &:nth-of-type(2){
+            &::before{
+                background-color: #c94343;            
+            }
+        }
+
+        &:nth-of-type(3){
+            &::before{
+                background-color: #e9eaed;            
+            }
+        }
 
         &:hover{
-            &:nth-of-type(1){
+            span{
+                font-weight: bold;
+            }
+            &::before{
+                top: 0;
             }
         }
     }
