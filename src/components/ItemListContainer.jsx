@@ -1,7 +1,5 @@
 import React,{useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
-/* ---------------------------------- DATA ---------------------------------- */
-import {data} from '../data/Data'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components';
 /* -------------------------------- FIREBASE -------------------------------- */

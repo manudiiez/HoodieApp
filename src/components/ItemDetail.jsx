@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemCount from './ItemCount'
+import { useEffect } from 'react'
 
 
 
@@ -31,6 +32,10 @@ const ItemDetail = ({ item }) => {
         navigate('/cart')
     }
 
+    useEffect(() => {
+        setBuyState(true)
+    }, [item])
+
     return (
         <div className="row mb-5 justify-content-around">
             <ContainerImg className="col-md-4 col-12 d-flex justify-content-center align-items-center">
@@ -47,18 +52,6 @@ const ItemDetail = ({ item }) => {
                     <p className='col-6'><span>Tipo:</span> {item.tipo}</p>
                     <p className='col-6'><span>Estampado:</span> {item.estampado}</p>
                 </ContainerCaracteristicas>
-
-                <ContainerSizes className='row justify-content-center align-items-center m-0 p-0 w-100'>
-                    {
-                        item.talles.map((talle) => (
-                            <div className="col-lg-3 col-6" key={talle}>
-                                <input type="radio" name="size" id={talle}/>
-                                <label htmlFor={talle}>{talle.toUpperCase()}</label>
-                            </div>
-                        ))
-                    }
-                   
-                </ContainerSizes>
                 <p className='precio my-3 p-0'>$ {item.price}</p>
                 {
                     buyState ? (

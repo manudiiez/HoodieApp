@@ -20,17 +20,6 @@ const ItemDetailContainer = () => {
     const db = getFirestore()
 
 
-
-    // useEffect(()=>{
-    //     setItem(null)
-    //     getNewItems()
-    //     .then((res)=> setNewItems(res))
-    //     getItem(itemId)
-    //     .then((res)=> setItem(res))
-    //     .catch(()=> console.log('hubo un error, intente mas tarde'))
-
-    // }, [itemId])
-
     const getNewItems = () => {
         const itemsCollectionQuery = query(
             collection(db, 'itemCollection'),

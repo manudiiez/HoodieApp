@@ -91,7 +91,7 @@ const NavBar = () => {
                     <NavDropdown title={user.email} className='name__container' id="basic-nav-dropdown">
                       {
                         user.email === 'admin@admin.com' ? (
-                          <NavDropdown.Item onClick={() => {navigate('/admin')}}>
+                          <NavDropdown.Item onClick={() => {navigate('/admin'); handleClick()}}>
                             Administrador
                           </NavDropdown.Item>
                         ):(

@@ -20,37 +20,6 @@ const Cart = ({cart, removeItem}) => {
                         <button className='mt-3'><Link to={'/'}>Ir a la tienda</Link></button>
                     </ContainerAlert>
                 ): (
-                    // <div>
-                    //     <table className="table">
-                    //         <thead>
-                    //             <tr>
-                    //             <th scope="col">Nombre</th>
-                    //             <th scope="col">precio/u</th>
-                    //             <th scope="col">cantidad</th>
-                    //             <th scope="col">Total</th>
-                    //             <th scope="col">Methods</th>
-
-                    //             </tr>
-                    //         </thead>
-                    //         <tbody>
-                    //             {
-                    //                 cart.map(item => (
-                    //                     <tr key={item.id}>
-                    //                         <td>{item.title}</td>
-                    //                         <td>$ {item.price}</td>
-                    //                         <td>{item.cantidad}</td>
-                    //                         <td>$ {item.cantidad * item.price}</td>
-                    //                         <td>
-                    //                             <button className='btn btn-danger' onClick={() => removeItem(item.id)}>
-                    //                                 <FontAwesomeIcon icon={faX}/>
-                    //                             </button>
-                    //                         </td>
-                    //                     </tr>
-                    //                 )) 
-                    //             }
-                    //         </tbody>
-                    //     </table>
-                    // </div>
                     <Container className='row justify-content-center align-items-center'>
                         {
                             cart.map(item => (

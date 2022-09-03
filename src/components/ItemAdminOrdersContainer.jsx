@@ -4,7 +4,7 @@ import {getDocs, collection, getFirestore, doc, updateDoc, deleteDoc} from 'fire
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ------------------------------- SWEETALERT ------------------------------- */
-import {Swal} from 'sweetalert2'
+import Swal from 'sweetalert2'
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemOrders from './ItemOrders'
 
@@ -49,8 +49,7 @@ const ItemAdminOrdersContainer = () => {
         getOrders()
     }
 
-    const deleteOrder = async(id) => {
-        await deleteDoc(doc(db, "orders", id));
+    const deleteOrder = (id) => {
         Swal.fire({
             title: 'Eliminar la order N°' + id,
             text: "¿Estas seguro?",
@@ -61,13 +60,18 @@ const ItemAdminOrdersContainer = () => {
             confirmButtonText: 'Eliminar'
           }).then((result) => {
             if (result.isConfirmed) {
-                await deleteDoc(doc(db, "orders", id));
+                const orderRef = doc(db, "orders", id);
+                updateDoc(orderRef, {state: 'De baja'}).then(() => {
+                    Swal.fire(
+                        'Eliminado',
+                        'La orden se elimino con exito',
+                        'success'
+                    )
+                    getOrders()
 
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
+                })
+
+
             }
           })
     }
@@ -102,7 +106,7 @@ const ItemAdminOrdersContainer = () => {
                 </div>
                 </div>
             ):(
-                <ItemOrders arr={listaOrdenes} admin={true} state={changeState} />
+                <ItemOrders arr={listaOrdenes} admin={true} state={changeState} deleteOrder={deleteOrder} />
             )
             }
         </div>

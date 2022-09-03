@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-const ItemOrders = ({arr, admin, state}) => {
-
+const ItemOrders = ({arr, admin, state, deleteOrder}) => {
+    const [lista, setLista] = useState([]);
 
     useEffect(() => {
         console.log(arr)
@@ -10,10 +10,9 @@ const ItemOrders = ({arr, admin, state}) => {
 
     return (
         <div className='row m-0 p-0'>
+            
             {
-                arr.lenght === 0 ?(
-                    <p>no hay ordenes</p>
-                ):(
+                arr.lenght != 0 && (
                     arr.map((item) => (
                         <ItemContainer key={item.id} className='row m-0 p-0 mb-3 px-2 py-3 '>
                             <div className="col-12 row m-0 p-0 justify-content-between align-items-center">
@@ -42,10 +41,10 @@ const ItemOrders = ({arr, admin, state}) => {
                             </div>
                             {
                                 admin ? (
-                                    <ButtonContainer className='col-12 row m-0 p-0 justify-content-between align-items-center'>
+                                    <ButtonContainer className='col-12 row m-0 p-0 justify-content-start align-items-center'>
                                         <button className='col-4' onClick={() => {state(item.id)}}><span>Estado</span></button>
-                                        <button className='col-4'><span>Eliminar</span></button>
-                                        <button className='col-4'><span>Contactar</span></button>
+                                        <button className='col-4' onClick={() => {deleteOrder(item.id)}}><span>Eliminar</span></button>
+                                        
                                     </ButtonContainer>
                                 ):(
                                     <span className="d-none"></span>
@@ -56,6 +55,13 @@ const ItemOrders = ({arr, admin, state}) => {
                                 
                                 <p className='price m-0'>$ {item.total}</p>
                             </div>
+                            {
+                                item.state == 'De baja' && (
+                                    <div className='state--baja d-flex justify-content-center align-items-center'>
+                                        <p className='m-0'>Order eliminada</p>
+                                    </div>
+                                )
+                            }
                         </ItemContainer>
                     ))
                 )
@@ -69,6 +75,7 @@ export default ItemOrders
 const ItemContainer = styled.div`
     
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    position: relative;
     
     .title__order{
         font-size: 16px;
@@ -97,6 +104,21 @@ const ItemContainer = styled.div`
 
     .state--realizada{
         color: #00b200;
+    }
+
+    .state--baja{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(233, 234, 237, 0.8);
+        z-index: 3;
+        p{
+            font-size: 18px;
+            font-weight: bold;
+            color: #c94343;
+        }
     }
 
 `

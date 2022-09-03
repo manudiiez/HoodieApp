@@ -17,16 +17,24 @@ const ItemCount = ({ onAdd, stock, initial }) => {
 
     useEffect(() => {
         setCount(initial)
-    }, [])
+    }, [stock])
 
     return (
         <Container>
-            <div className='d-flex justify-content-between align-items-center'>
-                <button disabled={count <= 1} onClick={handleSubtract}>-</button>
-                <p className='m-0 px-5'>{count}</p>
-                <button disabled={count >= stock} onClick={handleAdd}>+</button>
-            </div>
-            <button disabled={stock <= 0} className='addCarrito' onClick={() => onAdd(count)}>Añadir al carrito</button>
+            {
+                stock != 0 ? (
+                    <div>
+                        <div className='d-flex justify-content-between align-items-center'>
+                        <button disabled={count <= 1} onClick={handleSubtract}>-</button>
+                        <p className='m-0 px-5'>{count}</p>
+                        <button disabled={count >= stock} onClick={handleAdd}>+</button>
+                        </div>
+                        <button disabled={stock <= 0} className='addCarrito' onClick={() => onAdd(count)}>Añadir al carrito</button>
+                    </div>
+                ):(
+                    <p className='stock'>no hay stock</p>
+                )
+            }
 
         </Container>
     )
@@ -35,6 +43,12 @@ const ItemCount = ({ onAdd, stock, initial }) => {
 export default ItemCount
 
 const Container = styled.div`
+    .stock{
+        color: #c94343;
+        font-weight: bold;
+        text-align: center;
+        font-size: 18px;
+    }
     
 
     div{
