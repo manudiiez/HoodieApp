@@ -20,7 +20,7 @@ initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter >
+    <BrowserRouter basename='HoodieApp/'>
       <App />
     </BrowserRouter>
   </React.StrictMode>

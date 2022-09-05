@@ -41,32 +41,32 @@ const Home = () => {
 
     return (
         <Container>
-        <div className="container-lg">
-            <Brand title='Ofertas en buzos de adultos'/>
-            <div className="row justify-content-around p-4">
-            <HomeCard className='col-md-5 mb-5 col-12'>
-                <p className='h6'>Solo hoy</p>
-                <p>Solo en nuestra tienda</p>
-                <p className='h4 pb-3'>20% descuento</p>
-                <p>Buzos y <span className='fw-bold'>Nike</span></p>
-                <button className='btn btn-outline-light' onClick={goToCatalog}>Ir ahora</button>
-            </HomeCard>
-            <HomeCard className='col-md-5 mb-5 col-12 sweeterWhite'>
-                <p className='py-5 h6'>Los mejores diseños</p>
-                <button className='btn btn-outline-light mb-3' onClick={goToCatalog}>Ir ahora</button>
-            </HomeCard>
-            <HomeCard className='col-md-5 mb-5 col-12 gray'>
-                <p className='h6'>Solo hoy</p>
-                <p>Solo en nuestra tienda</p>
-                <p className='h4 pb-3'>10% descuento</p>
-                <p>Buzos <span className='fw-bold'>Black</span> and <span className='fw-bold'>White</span></p>
-                <button className='btn btn-outline-dark' onClick={goToCatalog}>Ir ahora</button>
-            </HomeCard>
-            {newItems.length !== 0 && <Item item={newItems[0]} key={newItems[0].id} className='col-md-3 mx-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' />}
-            {newItems.length !== 0 && <Item item={newItems[1]} key={newItems[1].id} className='col-md-3 mx-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' />}
+            <div className="container-lg">
+                <Brand title='Ofertas en buzos de adultos'/>
+                <div className="row justify-content-around p-4">
+                <HomeCard className='col-md-5 mb-5 col-12'>
+                    <p className='h6'>Solo hoy</p>
+                    <p>Solo en nuestra tienda</p>
+                    <p className='h4 pb-3'>20% descuento</p>
+                    <p>Buzos y <span className='fw-bold'>Nike</span></p>
+                    <button className='btn btn-outline-light' onClick={goToCatalog}>Ir ahora</button>
+                </HomeCard>
+                <HomeCard className='col-md-5 mb-5 col-12 sweeterWhite'>
+                    <p className='py-5 h6'>Los mejores diseños</p>
+                    <button className='btn btn-outline-light mb-3' onClick={goToCatalog}>Ir ahora</button>
+                </HomeCard>
+                <HomeCard className='col-md-5 mb-5 col-12 gray'>
+                    <p className='h6'>Solo hoy</p>
+                    <p>Solo en nuestra tienda</p>
+                    <p className='h4 pb-3'>10% descuento</p>
+                    <p>Buzos <span className='fw-bold'>Black</span> and <span className='fw-bold'>White</span></p>
+                    <button className='btn btn-outline-dark' onClick={goToCatalog}>Ir ahora</button>
+                </HomeCard>
+                {newItems.length !== 0 && <Item item={newItems[0]} key={newItems[0].id} className='col-md-3 mx-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' />}
+                {newItems.length !== 0 && <Item item={newItems[1]} key={newItems[1].id} className='col-md-3 mx-2 col-5 p-0 mb-5 d-flex justify-content-between flex-column' />}
+                </div>
+                
             </div>
-            
-        </div>
         </Container>
     )
 }

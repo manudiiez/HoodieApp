@@ -195,18 +195,18 @@ export const uploadFiles = async() => {
 
     try {
         const docRef = await addDoc(collection(db, "itemCollection"), {
-            title: 'Buzo liso Zara',
+            title: 'Buzo verde zara',
             price: 23,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore minima iste minus qui eligendi, eveniet perferendis nulla. Aliquid, accusamus amet!',
-            img: 'https://i.postimg.cc/yNvnpGtp/d00015da4fed4fe3bdabadd70080bddd-9366.webp',
+            img: 'https://i.postimg.cc/ZY2FYfRT/D-NQ-NP-772105-MLA47515042983-092021.webp',
             stock: 3,
             marca: 'zara',
-            modelo: 'oversize',
-            color: 'blanco',
+            modelo: 'skinny',
+            color: 'azul',
             estilo: 'casual',
-            estampado: 'liso',
+            estampado: 'dibujo',
             talles: ['s','m','l', 'xl'],
-            tipo: 'con capucha'
+            tipo: 'sin capucha'
 
         });
         console.log("Document written with ID: ", docRef.id);

@@ -59,16 +59,48 @@ const ItemFilter = ({click, handleClick}) => {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="2">
-                        <Accordion.Header>Precio</Accordion.Header>
+                        <Accordion.Header>Modelo</Accordion.Header>
                         <Accordion.Body>
-                            <ContainerPrice>
-                                <p className='col-12'>Filtrar por precio</p>
-                                <input type="number" className='col-6' />
-                                <input type="number" className='col-6' />
-                            </ContainerPrice>
+                            <ContainerCategory>
+                                <ul className='list-group'>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/skinny'>
+                                            Skinny
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/oversize'>
+                                            Oversize
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </ContainerCategory>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="3">
+                        <Accordion.Header>Estilo</Accordion.Header>
+                        <Accordion.Body>
+                            <ContainerCategory>
+                                <ul className='list-group'>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/deportivo'>
+                                            Deportivo
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/casual'>
+                                            Casual
+                                            <FontAwesomeIcon icon={faAngleRight} />
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </ContainerCategory>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="4">
                         <Accordion.Header>Color</Accordion.Header>
                         <Accordion.Body>
                             <ContainerColors className='py-5'>
@@ -94,48 +126,6 @@ const ItemFilter = ({click, handleClick}) => {
                                 </NavLink>
 
                             </ContainerColors>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="4">
-                        <Accordion.Header>Modelo</Accordion.Header>
-                        <Accordion.Body>
-                            <ContainerCategory>
-                                <ul className='list-group'>
-                                    <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/skinny'>
-                                            Skinny
-                                            <FontAwesomeIcon icon={faAngleRight} />
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/modelo/oversize'>
-                                            Oversize
-                                            <FontAwesomeIcon icon={faAngleRight} />
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </ContainerCategory>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="5">
-                        <Accordion.Header>Estilo</Accordion.Header>
-                        <Accordion.Body>
-                            <ContainerCategory>
-                                <ul className='list-group'>
-                                    <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/deportivo'>
-                                            Deportivo
-                                            <FontAwesomeIcon icon={faAngleRight} />
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink onClick={handleClick} className='d-flex justify-content-between align-items-center text-decoration-none' to='/estilo/casual'>
-                                            Casual
-                                            <FontAwesomeIcon icon={faAngleRight} />
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </ContainerCategory>
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>

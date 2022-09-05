@@ -12,12 +12,11 @@ import ProtectedRoute from "./components/protected/ProtectedRoute";
 import ProtectedAdminRoute from "./components/protected/ProtectedAdminRoute";
 import ItemAdminContainer from "./components/ItemAdminContainer";
 import ItemAboutusContainer from "./components/ItemAboutusContainer";
-
+import ItemAdminOrdersContainer from "./components/ItemAdminOrdersContainer";
+import ItemAdminListContainer from "./components/ItemAdminListContainer";
 /* --------------------------------- CONTEXT -------------------------------- */
 import CartProvider from './context/CartContext'
 import { AuthProvider } from "./context/AuthContext";
-import ItemAdminOrdersContainer from "./components/ItemAdminOrdersContainer";
-import ItemAdminListContainer from "./components/ItemAdminListContainer";
 
 
 function App() {

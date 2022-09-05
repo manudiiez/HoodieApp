@@ -106,8 +106,12 @@ const CartContainer = () => {
                (
                    <ContainerPrice className="row align-items-center justify-content-between m-0 p-0 mt-3">
                        <div className='col-12 col-sm-9 text-start'>
-                           <button className='btn btn-success me-3' onClick={() => {setModalConfirmState(true)}}>Finalizar compra</button>
-                           <button className='btn btn-danger' onClick={cleanCart}>Limpiar carrito</button>
+                           <button className='me-3' onClick={() => {setModalConfirmState(true)}}>
+                                <span>Finalizar compra</span>
+                           </button>
+                           <button className='' onClick={cleanCart}>
+                                <span>Limpiar carrito</span>
+                           </button>
                        </div>
                        <div className="totalPrice col-12 col-sm-3">
                            <p className='mb-3 text-end'>Total: <span>${totalPrice}</span></p>
@@ -167,6 +171,64 @@ const ContainerPrice = styled.div`
     }
 
     button{
+        background-color: transparent;
+        border: 2px solid #e9eaed;
+        padding: 10px;
+        color: #737680;
+        position: relative;
+        overflow: hidden;
+        z-index: 5;
+        span{
+            position: relative;
+            z-index: 6;
+        }
+
+        &:nth-of-type(1){
+            &::before{
+                content:"";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: #006100;
+                top: 100%;
+                left: 0;
+                transition: all .3s ease-in-out;
+            }
+
+            &:hover{
+                &::before{
+                    top: 0;
+                }
+
+                span{
+                    color: #fff;
+                }
+            }
+        }
+
+        &:nth-of-type(2){
+            &::before{
+                content:"";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: #c94343;
+                top: 100%;
+                left: 0;
+                transition: all .3s ease-in-out;
+            }
+
+            &:hover{
+                &::before{
+                    top: 0;
+                }
+
+                span{
+                    color: #fff;
+                }
+            }
+        }
+
         @media (max-width: 417px) {
             margin-bottom: 5px;
         }
