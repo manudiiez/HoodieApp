@@ -17,6 +17,7 @@ Lista de tecnologias usadas:
 * Bootstrap
 * React-router-dom
 * FontAwesome
+* Firebase
 
 ***
 
@@ -30,3 +31,10 @@ Lista de tecnologias usadas:
 
 https://manudiiez.github.io/HoodieApp/
 
+***
+
+## Contacto
+
+manudiiez123@gmail.com
+
+https://github.com/manudiiez
