@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/HoodieApp/static/css/main.e1cbdcf5.css",
-    "main.js": "/HoodieApp/static/js/main.b2680072.js",
+    "main.js": "/HoodieApp/static/js/main.9dfe5a2a.js",
     "static/media/bg-tarjeta-02.jpg": "/HoodieApp/static/media/bg-tarjeta-02.590fba6518d911073852.jpg",
     "static/media/logo2.png": "/HoodieApp/static/media/logo2.664b9641425baccbda1f.png",
     "static/media/brandNew.jpg": "/HoodieApp/static/media/brandNew.52bb53f26936cd2f53ab.jpg",
     "index.html": "/HoodieApp/index.html",
     "main.e1cbdcf5.css.map": "/HoodieApp/static/css/main.e1cbdcf5.css.map",
-    "main.b2680072.js.map": "/HoodieApp/static/js/main.b2680072.js.map"
+    "main.9dfe5a2a.js.map": "/HoodieApp/static/js/main.9dfe5a2a.js.map"
   },
   "entrypoints": [
     "static/css/main.e1cbdcf5.css",
-    "static/js/main.b2680072.js"
+    "static/js/main.9dfe5a2a.js"
   ]
 }
