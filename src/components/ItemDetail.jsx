@@ -2,7 +2,7 @@ import React,{useContext, useState} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 /* --------------------------------- CONTEXT -------------------------------- */
 import { CartContext } from '../context/CartContext'
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -58,7 +58,11 @@ const ItemDetail = ({ item }) => {
                         <ItemCount stock={item.stock} onAdd={handleAdd} initial={1} />   
 
                     ):(
-                        <button className='buyButton' onClick={handleBuy}>Finalizar compra</button>             
+                        <ContainerButtons>
+                            <button className='buyButton' onClick={handleBuy}>Finalizar compra</button>   
+                            <button className='buyButton'><Link to='/'>Seguir comprando</Link></button> 
+                        </ContainerButtons>
+                                  
                     )
                 }
             </ContainerText>
@@ -96,22 +100,6 @@ const ContainerText = styled.div`
         font-size: 16px;
         font-weight: bold;
     }
-
-    .buyButton{
-        background-color: #c94343;
-        border: none;
-        color: #fff;
-        padding: 5px 10px;
-        margin-top: 20px;
-        border-radius: 30px;
-        transition: all .5s ease;
-        max-width: 300px;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        &:hover{
-            transform: scale(1.05);
-        }
-    }
-
     @media(min-width: 992px){
         h5{
             margin: 30px;
@@ -139,38 +127,32 @@ const ContainerCaracteristicas = styled.div`
 
 `
 
-const ContainerMethods= styled.div`
-    
 
+const ContainerButtons = styled.div`
 
-`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-const ContainerSizes = styled.div`
-
-
-    input[type="radio"]{
-        display: none;
-    }
-
-    label{
-
-        color: #c94343;
-        background-color: #E9EAED;
-        width: 100%;
-        padding: 5px 0;
-        margin: 5px 0;
-        border-radius: 5px;
+    .buyButton{
+        background-color: #c94343;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        margin-top: 20px;
+        border-radius: 30px;
+        transition: all .5s ease;
+        max-width: 300px;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         &:hover{
-            background-color: #801d1d;
-            color: #E9EAED;
+            transform: scale(1.05);
         }
 
-    }
-    
-    input[type="radio"]:checked + label{
-        background-color: #c94343;
-        color: #E9EAED;
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
     }
 
 

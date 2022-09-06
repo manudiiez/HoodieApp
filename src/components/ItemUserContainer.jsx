@@ -90,8 +90,8 @@ const ItemUserContainer = () => {
                         </div>
                         <p>Use su email para registrarse</p>
                         <input type="email" required placeholder='Email' name='email' onChange={handleChange}/>
-                        <input type="text" required placeholder='Password' name='password' onChange={handleChange}/>
-                        <input type="text" required placeholder='Confirm password' onChange={(e)=> setConfirmPassword(e.target.value)}/>
+                        <input type="password" required placeholder='Password' name='password' onChange={handleChange}/>
+                        <input type="password" required placeholder='Confirm password' onChange={(e)=> setConfirmPassword(e.target.value)}/>
                         <button type='submit'>Sign Up</button>
                     </form>
                 </div>
