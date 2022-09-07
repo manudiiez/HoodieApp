@@ -1,13 +1,12 @@
 
 
-import React, { useEffect } from 'react'
 /* ---------------------------- STYLED-COMPONENT ---------------------------- */
 import styled from 'styled-components'
 import {useNavigate} from 'react-router-dom'
 
 const Item = ({ item, className }) => {
 
-    const {id, title, price, img, stock, marca,  color} = item
+    const {id, title, price, img} = item
 
 
     const navigate = useNavigate();

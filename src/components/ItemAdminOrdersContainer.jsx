@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 /* -------------------------------- FIREBASE -------------------------------- */
-import {getDocs, collection, getFirestore, doc, updateDoc, deleteDoc} from 'firebase/firestore'
+import {getDocs, collection, getFirestore, doc, updateDoc} from 'firebase/firestore'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ------------------------------- SWEETALERT ------------------------------- */
@@ -22,9 +22,7 @@ const ItemAdminOrdersContainer = () => {
         getDocs(ordersCollection)
             .then((snapshot) => {
             const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
-            console.log(data)
             setListaOrdenes(data)
-            console.log(listaOrdenes)
             setLoading(false)
             })
             .catch((error) => console.log(error)) 

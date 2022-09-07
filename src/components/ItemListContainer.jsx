@@ -22,9 +22,7 @@ const ItemListContainer = () => {
       getDocs(itemsCollection)
         .then((snapshot) => {
           const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
-          console.log(data)
           setListaBuzos(data)
-          console.log(listaBuzos)
         })
         .catch((error) => console.log(error))
     }
@@ -34,7 +32,6 @@ const ItemListContainer = () => {
     }, [])
 
     useEffect(() => {
-        console.log(categoryId)
         if (categoryId) {      
           const itemsCollectionQuery = query(
             collection(db, 'itemCollection'),

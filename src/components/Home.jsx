@@ -5,7 +5,6 @@ import Brand from './Brand/Brand'
 import HomeCard from './HomeCard'
 import Item from './Item'
 /* ---------------------------- REACT-ROUTER-DOM ---------------------------- */ 
-import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 /* -------------------------------- FIREBASE -------------------------------- */
 import {getDocs, limit, query, collection, getFirestore} from 'firebase/firestore'
@@ -75,5 +74,4 @@ export default Home
 
 const Container = styled.div`
   padding-top: 100px;
-
 `

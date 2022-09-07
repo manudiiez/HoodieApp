@@ -1,8 +1,6 @@
 import React,{useState, useEffect} from 'react'
 /* -------------------------------- FIREBASE -------------------------------- */  
-import { getFirestore, getDocs, collection, updateDoc, doc, getDoc} from "firebase/firestore";
-/* ---------------------------- STYLED-COMPONENTS --------------------------- */
-import styled from 'styled-components';
+import { getFirestore, getDocs, collection, updateDoc, doc} from "firebase/firestore";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ItemAdminList from './ItemAdminList';
 
@@ -19,9 +17,7 @@ const ItemAdminListContainer = () => {
     getDocs(itemsCollection)
       .then((snapshot) => {
         const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
-        console.log(data)
         setListaBuzos(data)
-        console.log(listaBuzos)
         setLoading(false)
       })
       .catch((error) => console.log(error))
@@ -37,7 +33,6 @@ const ItemAdminListContainer = () => {
 
   useEffect(()=>{
     getBuzos()
-    console.log(listaBuzos)
   }, [])
 
   return (

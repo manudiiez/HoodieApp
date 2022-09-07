@@ -254,18 +254,6 @@ const ContainerCategory = styled.div`
     }
 `
 
-const ContainerPrice = styled.div`
-    p{
-        color: #C94343;
-        text-align: center;
-        padding-top: 10px;
-    }
-    input{
-        background-color: #d8d9db;
-        border: 1px solid #b0b1b2;
-    }
-`
-
 const ContainerColors = styled.div`
     display: flex;
     justify-content: center;

@@ -27,7 +27,6 @@ const ItemOrdersContainer = () => {
         const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         setOrders(data)
         setLoading(false)
-        console.log(data)
       })
       .catch((error) => console.error(error))
   }, [])

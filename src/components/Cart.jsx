@@ -20,7 +20,7 @@ const Cart = ({cart, removeItem}) => {
                         <button className='mt-3'><Link to={'/'}>Ir a la tienda</Link></button>
                     </ContainerAlert>
                 ): (
-                    <Container className='row justify-content-center align-items-center'>
+                    <div className='row justify-content-center align-items-center'>
                         {
                             cart.map(item => (
                                 <Item className='col-12 row p-0 m-0 py-3' key={item.id}>
@@ -43,7 +43,7 @@ const Cart = ({cart, removeItem}) => {
                                 </Item>
                             ))
                         }
-                    </Container>
+                    </div>
                 )
             }
         </div>
@@ -53,11 +53,6 @@ const Cart = ({cart, removeItem}) => {
 export default Cart
 
 
-const Container = styled.div`
-
-
-
-`
 
 const Item = styled.div`
     border-bottom: 1px solid #e9eaed;

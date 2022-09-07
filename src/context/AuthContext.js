@@ -29,12 +29,9 @@ export const AuthProvider = ({children}) => {
         const docRef = doc(db, "users", uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            console.log(uid, 'si existe')
             setRol(true)
             setLoading(false)
         } else {
-            // doc.data() will be undefined in this case
-            console.log('el documento no existe')
             setRol(false)
             setLoading(false)
         }

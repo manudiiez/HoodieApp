@@ -1,12 +1,6 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const ItemOrders = ({arr, admin, state, deleteOrder}) => {
-    const [lista, setLista] = useState([]);
-
-    useEffect(() => {
-        console.log(arr)
-    }, [])
 
     return (
         <div className='row m-0 p-0'>

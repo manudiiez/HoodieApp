@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useState} from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
 /* ------------------------------- SWEETALERT ------------------------------- */
@@ -41,12 +41,6 @@ const ItemCreditCardContainer = ({buy}) => {
                 'warning'
             )
         }
-    }
-
-    const handleNameChange = (e) => {
-        let key = e.key
-        key.replace(/[0-9]/g, '')
- 
     }
 
     return (

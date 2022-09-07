@@ -15,6 +15,7 @@ const ItemDetailContainer = () => {
 
     const [item, setItem] = useState(null);
     const [newItems, setNewItems] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const {itemId} = useParams()
     const db = getFirestore()
@@ -35,17 +36,20 @@ const ItemDetailContainer = () => {
     }
 
     useEffect(()=>{    
+        setLoading(true)
         const docRef = doc(db, 'itemCollection', itemId)
         getDoc(docRef)
           .then((snapshot) => {
             if(snapshot.exists()){
-              console.log(snapshot.data())
               const data = {
                 id: snapshot.id,
                 ...snapshot.data()
               }
-              console.log(data)
               setItem(data)
+              setLoading(false)
+            }else{
+                console.log('no existe')
+                setLoading(false)
             }
           })
           .catch((error) => console.log(error))
@@ -58,7 +62,7 @@ const ItemDetailContainer = () => {
     return (
         <Container className='container-lg p-5'>
             {
-                item === null ? 
+                loading ? 
                 (
                     <div className="d-flex justify-content-center my-5 py-5">
                         <div className="spinner-border text-danger" role="status">
